@@ -40,7 +40,11 @@ export const SamplePage = () => (
         hint="Release notes and changelog"
       />
       <Checkbox label="Security alerts" hint="Critical notices only" />
-      <Checkbox indeterminate label="Beta programs" hint="Some teams opted in" />
+      <Checkbox
+        indeterminate
+        label="Beta programs"
+        hint="Some teams opted in"
+      />
     </section>
 
     <section className="space-y-3 rounded-lg border border-border bg-muted/30 p-4">

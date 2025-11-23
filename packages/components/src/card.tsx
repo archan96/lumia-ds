@@ -18,11 +18,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
   ref,
 ) {
   return (
-    <div
-      ref={ref}
-      className={cn(cardBaseClasses, className)}
-      {...props}
-    />
+    <div ref={ref} className={cn(cardBaseClasses, className)} {...props} />
   );
 });
 
@@ -73,11 +69,7 @@ export const CardDescription = forwardRef<
 export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
   function CardContent({ className, ...props }, ref) {
     return (
-      <div
-        ref={ref}
-        className={cn(sectionBaseClasses, className)}
-        {...props}
-      />
+      <div ref={ref} className={cn(sectionBaseClasses, className)} {...props} />
     );
   },
 );

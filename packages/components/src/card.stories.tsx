@@ -21,7 +21,9 @@ export const Example = () => (
     <Card className="max-w-md">
       <CardHeader>
         <CardTitle>Card title</CardTitle>
-        <CardDescription>Subtitle or supporting copy goes here.</CardDescription>
+        <CardDescription>
+          Subtitle or supporting copy goes here.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <p className="text-sm leading-6 text-foreground">

@@ -32,6 +32,24 @@ export type {
   TabsContentProps,
 } from './tabs';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
+export type {
+  DialogProps,
+  DialogTriggerProps,
+  DialogContentProps,
+  DialogHeaderProps,
+  DialogTitleProps,
+  DialogDescriptionProps,
+  DialogFooterProps,
+} from './dialog';
+export {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from './dialog';
 
 export type HelloProps = {
   name?: string;
