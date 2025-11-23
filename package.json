@@ -23,7 +23,9 @@
     "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.5.0",
     "prettier": "^3.6.2",
+    "semver": "^7.7.3",
     "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "unplugin": "^1.16.1"
   }
 }

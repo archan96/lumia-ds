@@ -1,4 +1,6 @@
 import type { FC, ReactNode } from 'react';
+export type { ButtonProps } from './button';
+export { Button, buttonStyles } from './button';
 
 export type HelloProps = {
   name?: string;

@@ -2,19 +2,24 @@
 
 Lumia design-system React components, wrapping shadcn primitives and themed via `@lumia/theme` and `@lumia/tokens`.
 
-## Status
-
-- Skeleton package with a sample `Hello` component to validate the build/test toolchain.
-
 ## Usage
 
 ```tsx
-import { Hello } from '@lumia/components';
+import { Button } from '@lumia/components';
 
 export function Example() {
-    return <Hello name="Lumia">Child content</Hello>;
+  return (
+    <Button variant="primary" size="md">
+      Click
+    </Button>
+  );
 }
 ```
+
+Storybook (Button playground):  
+`HOME=$(pwd) STORYBOOK_DISABLE_TELEMETRY=1 pnpm --filter @lumia/components storybook -- -p 6006`
+
+More details: see `docs/storybook.md`.
 
 ## Local development
 
