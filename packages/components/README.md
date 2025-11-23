@@ -29,6 +29,13 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetFooter,
 } from '@lumia/components';
 
 export function Example() {
@@ -112,12 +119,33 @@ export function Example() {
           <p className="text-sm text-foreground/80">
             Body copy lives here. Press ESC or click outside to dismiss.
           </p>
-          <DialogFooter>
-            <Button variant="secondary">Cancel</Button>
-            <Button>Confirm</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <DialogFooter>
+        <Button variant="secondary">Cancel</Button>
+        <Button>Confirm</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button>Open drawer</Button>
+        </SheetTrigger>
+        <SheetContent side="right">
+          <SheetHeader>
+            <SheetTitle>Filters</SheetTitle>
+            <SheetDescription>
+              Adjust list results without leaving the page.
+            </SheetDescription>
+          </SheetHeader>
+          <p className="text-sm text-foreground/80">
+            Add inputs or any custom layout inside the sheet body.
+          </p>
+          <SheetFooter>
+            <Button variant="secondary">Reset</Button>
+            <Button>Apply</Button>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }
@@ -133,6 +161,12 @@ More details: see `docs/storybook.md`.
 - Built on `@radix-ui/react-dialog` for focus trapping and accessible roles (`role="dialog"`, `aria-modal`, labelled by the title).
 - Overlay and content pull design tokens for background, border, radius, and shadow; overlay click, ESC key, and the close button all dismiss and return focus to the trigger.
 - Use `DialogTrigger` with `asChild` to wrap buttons/links, and compose `DialogHeader`, `DialogTitle`, `DialogDescription`, and `DialogFooter` for consistent spacing.
+
+### Sheet notes
+
+- Same Radix foundation as Dialog but positioned as a drawer from any edge (`side="right" | "left" | "top" | "bottom"`).
+- Overlay uses DS overlay tokens; sheet width uses token-friendly constraints (`min(90vw, 26rem)` on sides, responsive widths on top/bottom).
+- `closeOnOverlayClick` (default `true`) controls whether overlay click dismisses; ESC and the close button always close and return focus to the trigger.
 
 ## Local development
 
