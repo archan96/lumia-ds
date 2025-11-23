@@ -1,9 +1,9 @@
 # @lumia/tokens
 
-Theme tokens exported for Lumia DS. The package ships a typed `ThemeTokens` shape and a `tokens` object consumers can import directly:
+Theme tokens exported for Lumia DS. The package ships a typed `ThemeTokens` shape and a `defaultTheme` object consumers can import directly:
 
 ```ts
-import { tokens, type ThemeTokens } from '@lumia/tokens';
+import { defaultTheme, tokens, type ThemeTokens } from '@lumia/tokens';
 ```
 
 ## Token groups

@@ -1,16 +1,20 @@
 import { describe, it, expect } from 'vitest';
-import { tokens, type ThemeTokens } from './index';
+import { defaultTheme, tokens, type ThemeTokens } from './index';
 
 describe('@lumia/tokens', () => {
     it('exports tokens in ThemeTokens shape', () => {
-        const theme: ThemeTokens = tokens;
+        const theme: ThemeTokens = defaultTheme;
 
         expect(theme).toBeDefined();
         expect(typeof theme).toBe('object');
     });
 
+    it('exposes defaultTheme as the primary theme export', () => {
+        expect(defaultTheme).toEqual(tokens);
+    });
+
     it('includes required color slots', () => {
-        expect(tokens.colors).toMatchObject({
+        expect(defaultTheme.colors).toMatchObject({
             primary: expect.any(String),
             secondary: expect.any(String),
             background: expect.any(String),
@@ -19,16 +23,24 @@ describe('@lumia/tokens', () => {
             muted: expect.any(String),
             destructive: expect.any(String),
         });
-        expect(tokens.colors.primary).toBe('#0070f3');
+        expect(defaultTheme.colors).toMatchObject({
+            primary: '#0f172a',
+            secondary: '#f1f5f9',
+            background: '#ffffff',
+            foreground: '#020817',
+            border: '#e2e8f0',
+            muted: '#f1f5f9',
+            destructive: '#ef4444',
+        });
     });
 
     it('exposes typography families, sizes, and weights', () => {
-        expect(tokens.typography.families).toMatchObject({
+        expect(defaultTheme.typography.families).toMatchObject({
             sans: expect.any(String),
             mono: expect.any(String),
             display: expect.any(String),
         });
-        expect(tokens.typography.sizes).toMatchObject({
+        expect(defaultTheme.typography.sizes).toMatchObject({
             xs: expect.any(String),
             sm: expect.any(String),
             md: expect.any(String),
@@ -36,7 +48,7 @@ describe('@lumia/tokens', () => {
             xl: expect.any(String),
             '2xl': expect.any(String),
         });
-        expect(tokens.typography.weights).toMatchObject({
+        expect(defaultTheme.typography.weights).toMatchObject({
             regular: expect.any(Number),
             medium: expect.any(Number),
             semibold: expect.any(Number),
@@ -45,7 +57,7 @@ describe('@lumia/tokens', () => {
     });
 
     it('covers spacing, radii, and shadows', () => {
-        expect(tokens.spacing).toMatchObject({
+        expect(defaultTheme.spacing).toMatchObject({
             xxs: expect.any(String),
             xs: expect.any(String),
             sm: expect.any(String),
@@ -54,14 +66,14 @@ describe('@lumia/tokens', () => {
             xl: expect.any(String),
             '2xl': expect.any(String),
         });
-        expect(tokens.radii).toMatchObject({
+        expect(defaultTheme.radii).toMatchObject({
             xs: expect.any(String),
             sm: expect.any(String),
             md: expect.any(String),
             lg: expect.any(String),
             pill: expect.any(String),
         });
-        expect(tokens.shadows).toMatchObject({
+        expect(defaultTheme.shadows).toMatchObject({
             xs: expect.any(String),
             sm: expect.any(String),
             md: expect.any(String),

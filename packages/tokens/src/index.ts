@@ -60,21 +60,21 @@ export type ThemeTokens = {
     };
 };
 
-export const tokens: ThemeTokens = {
+export const defaultTheme: ThemeTokens = {
     colors: {
-        primary: '#0070f3',
-        secondary: '#8b5cf6',
+        primary: '#0f172a',
+        secondary: '#f1f5f9',
         background: '#ffffff',
-        foreground: '#0f172a',
+        foreground: '#020817',
         border: '#e2e8f0',
         muted: '#f1f5f9',
         destructive: '#ef4444',
     },
     typography: {
         families: {
-            sans: '"Inter", "Helvetica Neue", Arial, sans-serif',
-            mono: '"SFMono-Regular", "Menlo", "Monaco", Consolas, "Liberation Mono", "Courier New", monospace',
-            display: '"Satoshi", "Inter", "Helvetica Neue", Arial, sans-serif',
+            sans: '"Inter", "Inter Variable", "Helvetica Neue", Arial, sans-serif',
+            mono: '"JetBrains Mono", "SFMono-Regular", "Menlo", "Monaco", Consolas, "Liberation Mono", "Courier New", monospace',
+            display: '"Inter", "Inter Variable", "Helvetica Neue", Arial, sans-serif',
         },
         sizes: {
             xs: '12px',
@@ -108,10 +108,12 @@ export const tokens: ThemeTokens = {
         '2xl': '40px',
     },
     shadows: {
-        xs: '0 1px 2px rgba(15, 23, 42, 0.06)',
-        sm: '0 2px 4px rgba(15, 23, 42, 0.08)',
-        md: '0 4px 8px rgba(15, 23, 42, 0.12)',
-        lg: '0 10px 24px rgba(15, 23, 42, 0.18)',
-        inset: 'inset 0 1px 2px rgba(15, 23, 42, 0.08)',
+        xs: '0 1px 2px rgba(2, 8, 23, 0.06)',
+        sm: '0 2px 4px rgba(2, 8, 23, 0.08)',
+        md: '0 4px 8px rgba(2, 8, 23, 0.12)',
+        lg: '0 10px 24px rgba(2, 8, 23, 0.18)',
+        inset: 'inset 0 1px 2px rgba(2, 8, 23, 0.08)',
     },
 };
+
+export const tokens = defaultTheme;
