@@ -50,6 +50,24 @@ export {
   DialogDescription,
   DialogFooter,
 } from './dialog';
+export type {
+  SheetProps,
+  SheetTriggerProps,
+  SheetContentProps,
+  SheetHeaderProps,
+  SheetTitleProps,
+  SheetDescriptionProps,
+  SheetFooterProps,
+} from './sheet';
+export {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetFooter,
+} from './sheet';
 
 export type HelloProps = {
   name?: string;
