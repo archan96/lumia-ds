@@ -42,6 +42,12 @@ importers:
         specifier: ^8.0.0
         version: 8.5.1(typescript@5.9.3)
 
+  packages/tokens:
+    devDependencies:
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.1(typescript@5.9.3)
+
 packages:
 
   '@esbuild/aix-ppc64@0.27.0':
