@@ -1,12 +1,9 @@
 import type { ButtonHTMLAttributes } from 'react';
 import { forwardRef } from 'react';
+import { cn } from './utils';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link';
 type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
-
-type ClassValue = string | false | null | undefined;
-const cn = (...classes: ClassValue[]) =>
-  classes.filter(Boolean).join(' ');
 
 const baseButtonClasses =
   'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed';

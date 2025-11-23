@@ -5,13 +5,23 @@ Lumia design-system React components, wrapping shadcn primitives and themed via 
 ## Usage
 
 ```tsx
-import { Button } from '@lumia/components';
+import { Button, Input, Textarea } from '@lumia/components';
 
 export function Example() {
   return (
-    <Button variant="primary" size="md">
-      Click
-    </Button>
+    <div className="flex flex-col gap-4">
+      <Button variant="primary" size="md">
+        Click
+      </Button>
+
+      <Input placeholder="Your name" hint="This will be visible to admins" />
+
+      <Textarea
+        placeholder="Describe the issue"
+        invalid
+        hint="Please add more detail"
+      />
+    </div>
   );
 }
 ```
