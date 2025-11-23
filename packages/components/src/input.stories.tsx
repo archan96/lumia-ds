@@ -17,11 +17,7 @@ export const Playground = (args: InputProps) => <Input {...args} />;
 export const States = () => (
   <div className="flex flex-col gap-4 bg-background p-6">
     <Input placeholder="Regular input" hint="Helper text" />
-    <Input
-      placeholder="Invalid input"
-      invalid
-      hint="This field is required"
-    />
+    <Input placeholder="Invalid input" invalid hint="This field is required" />
     <Textarea placeholder="Textarea" hint="Use multiple lines if needed" />
     <Textarea
       placeholder="Textarea invalid"

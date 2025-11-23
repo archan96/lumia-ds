@@ -4,7 +4,7 @@
   "description": "Lumia UI design-system library monorepo",
   "scripts": {
     "test": "pnpm -r --if-present test -- --coverage",
-    "lint": "eslint .",
+    "lint": "eslint \"packages/**/*.{ts,tsx,js,jsx}\" --cache",
     "type-check": "tsc --build",
     "build": "pnpm -r build"
   },

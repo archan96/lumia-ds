@@ -7,13 +7,33 @@ const globals = require('globals');
 
 module.exports = [
   {
-    ignores: ['**/node_modules/**', '**/dist/**', '**/build/**'],
+    ignores: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/build/**',
+      '**/coverage/**',
+      '**/storybook-static/**',
+      '.pnpm-store/**',
+    ],
   },
   js.configs.recommended,
   {
     files: ['**/*.js', 'eslint.config.js'],
     languageOptions: {
       sourceType: 'commonjs',
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
+    files: ['**/.storybook/**/*.{js,ts}'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'commonjs',
+      },
       globals: {
         ...globals.node,
       },
