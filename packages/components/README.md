@@ -22,6 +22,13 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
 } from '@lumia/components';
 
 export function Example() {
@@ -90,6 +97,27 @@ export function Example() {
           </p>
         </TabsContent>
       </Tabs>
+
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button>Open dialog</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Dialog title</DialogTitle>
+            <DialogDescription>
+              Explain what the user can do in this dialog.
+            </DialogDescription>
+          </DialogHeader>
+          <p className="text-sm text-foreground/80">
+            Body copy lives here. Press ESC or click outside to dismiss.
+          </p>
+          <DialogFooter>
+            <Button variant="secondary">Cancel</Button>
+            <Button>Confirm</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
@@ -99,6 +127,12 @@ Storybook (Button playground):
 `HOME=$(pwd) STORYBOOK_DISABLE_TELEMETRY=1 pnpm --filter @lumia/components storybook -- -p 6006`
 
 More details: see `docs/storybook.md`.
+
+### Dialog notes
+
+- Built on `@radix-ui/react-dialog` for focus trapping and accessible roles (`role="dialog"`, `aria-modal`, labelled by the title).
+- Overlay and content pull design tokens for background, border, radius, and shadow; overlay click, ESC key, and the close button all dismiss and return focus to the trigger.
+- Use `DialogTrigger` with `asChild` to wrap buttons/links, and compose `DialogHeader`, `DialogTitle`, `DialogDescription`, and `DialogFooter` for consistent spacing.
 
 ## Local development
 

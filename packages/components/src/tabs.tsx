@@ -1,8 +1,4 @@
-import type {
-  ButtonHTMLAttributes,
-  HTMLAttributes,
-  ReactNode,
-} from 'react';
+import type { ButtonHTMLAttributes, HTMLAttributes } from 'react';
 import {
   createContext,
   forwardRef,
@@ -95,11 +91,7 @@ export const Tabs = ({
       if (!orderedValuesRef.current.includes(tabValue)) {
         orderedValuesRef.current.push(tabValue);
       }
-      if (
-        !isControlled &&
-        currentValueRef.current === undefined &&
-        !disabled
-      ) {
+      if (!isControlled && currentValueRef.current === undefined && !disabled) {
         currentValueRef.current = tabValue;
         setCurrentValue(tabValue);
       }

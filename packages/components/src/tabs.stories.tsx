@@ -18,19 +18,13 @@ export const Playground = (args: TabsProps) => (
     </TabsList>
     <TabsContent value="overview">
       <div className="flex flex-col gap-2">
-        <h4 className="text-base font-semibold text-foreground">
-          Overview
-        </h4>
-        <p className="text-muted">
-          High level summary content lives here.
-        </p>
+        <h4 className="text-base font-semibold text-foreground">Overview</h4>
+        <p className="text-muted">High level summary content lives here.</p>
       </div>
     </TabsContent>
     <TabsContent value="usage">
       <div className="flex flex-col gap-2">
-        <h4 className="text-base font-semibold text-foreground">
-          Usage
-        </h4>
+        <h4 className="text-base font-semibold text-foreground">Usage</h4>
         <p className="text-muted">
           Best practices, copy, and quick references.
         </p>
@@ -38,12 +32,8 @@ export const Playground = (args: TabsProps) => (
     </TabsContent>
     <TabsContent value="history">
       <div className="flex flex-col gap-2">
-        <h4 className="text-base font-semibold text-foreground">
-          History
-        </h4>
-        <p className="text-muted">
-          Changes or notes for this section.
-        </p>
+        <h4 className="text-base font-semibold text-foreground">History</h4>
+        <p className="text-muted">Changes or notes for this section.</p>
       </div>
     </TabsContent>
   </Tabs>

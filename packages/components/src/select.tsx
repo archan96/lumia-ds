@@ -73,7 +73,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
               stroke="currentColor"
               strokeWidth="1.5"
             >
-              <path d="M6 8l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M6 8l4 4 4-4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </span>
         </div>

@@ -40,11 +40,6 @@ export const Group = () => (
       hint="For urgent topics"
       invalid
     />
-    <Radio
-      name="contact-method"
-      value="none"
-      label="Do not contact"
-      disabled
-    />
+    <Radio name="contact-method" value="none" label="Do not contact" disabled />
   </div>
 );
