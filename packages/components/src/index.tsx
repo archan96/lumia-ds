@@ -1,6 +1,8 @@
 import type { FC, ReactNode } from 'react';
 export type { ButtonProps } from './button';
 export { Button, buttonStyles } from './button';
+export type { InputProps, TextareaProps } from './input';
+export { Input, Textarea } from './input';
 
 export type HelloProps = {
   name?: string;
