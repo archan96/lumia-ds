@@ -25,6 +25,13 @@ export type { RadioProps } from './radio';
 export { Radio } from './radio';
 export type { SelectProps } from './select';
 export { Select } from './select';
+export type {
+  TabsProps,
+  TabsListProps,
+  TabsTriggerProps,
+  TabsContentProps,
+} from './tabs';
+export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 
 export type HelloProps = {
   name?: string;

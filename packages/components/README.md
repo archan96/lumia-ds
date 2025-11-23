@@ -18,6 +18,10 @@ import {
   Radio,
   Select,
   Textarea,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
 } from '@lumia/components';
 
 export function Example() {
@@ -63,6 +67,29 @@ export function Example() {
         <Radio name="sla" value="standard" label="Standard" defaultChecked />
         <Radio name="sla" value="priority" label="Priority" />
       </div>
+
+      <Tabs defaultValue="overview">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="usage">Usage</TabsTrigger>
+          <TabsTrigger value="history">History</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview">
+          <p className="text-sm text-muted">
+            High level summary content lives here.
+          </p>
+        </TabsContent>
+        <TabsContent value="usage">
+          <p className="text-sm text-muted">
+            Best practices, copy, and quick references.
+          </p>
+        </TabsContent>
+        <TabsContent value="history">
+          <p className="text-sm text-muted">
+            Changes or notes for this section.
+          </p>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
