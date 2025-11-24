@@ -9,14 +9,15 @@ type ValidatedInputProps = {
   onChange: (value: string) => void;
   rules?: ValidationRule<string>[];
   hint?: string;
+  errorMessage?: string | null;
 } & Omit<InputProps, 'value' | 'onChange' | 'invalid' | 'hint'>;
 
 export const ValidatedInput = forwardRef<HTMLInputElement, ValidatedInputProps>(
   function ValidatedInput(
-    { value, onChange, rules = [], hint, onBlur, ...inputProps },
+    { value, onChange, rules = [], hint, onBlur, errorMessage, ...inputProps },
     ref,
   ) {
-    const [error, setError] = useState<string | null>(null);
+    const [internalError, setInternalError] = useState<string | null>(null);
     const validationRun = useRef(0);
 
     const runValidation = useCallback(
@@ -24,7 +25,7 @@ export const ValidatedInput = forwardRef<HTMLInputElement, ValidatedInputProps>(
         const runId = ++validationRun.current;
 
         if (!rules.length) {
-          setError(null);
+          setInternalError(null);
           return;
         }
 
@@ -34,14 +35,14 @@ export const ValidatedInput = forwardRef<HTMLInputElement, ValidatedInputProps>(
 
           if (!isValid) {
             if (validationRun.current === runId) {
-              setError(rule.message);
+              setInternalError(rule.message);
             }
             return;
           }
         }
 
         if (validationRun.current === runId) {
-          setError(null);
+          setInternalError(null);
         }
       },
       [rules],
@@ -65,8 +66,9 @@ export const ValidatedInput = forwardRef<HTMLInputElement, ValidatedInputProps>(
       [onBlur, runValidation],
     );
 
-    const displayHint = error ?? hint;
-    const isInvalid = Boolean(error);
+    const displayError = errorMessage ?? internalError;
+    const displayHint = displayError ?? hint;
+    const isInvalid = Boolean(displayError);
 
     return (
       <Input
