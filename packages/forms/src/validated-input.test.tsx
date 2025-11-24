@@ -130,4 +130,39 @@ describe('ValidatedInput', () => {
     await act(async () => root.unmount());
     document.body.removeChild(host);
   });
+
+  it('surfaces externally provided error messages', async () => {
+    const ControlledInput = ({ message }: { message: string | null }) => {
+      const [value, setValue] = useState('');
+      return (
+        <ValidatedInput
+          value={value}
+          onChange={setValue}
+          errorMessage={message}
+          hint="Helper text"
+        />
+      );
+    };
+
+    const { host, root } = createTestRoot();
+
+    await act(async () => {
+      root.render(<ControlledInput message="External error" />);
+    });
+
+    const input = host.querySelector('input') as HTMLInputElement;
+
+    expect(host.querySelector('p')?.textContent).toBe('External error');
+    expect(input.getAttribute('aria-invalid')).toBe('true');
+
+    await act(async () => {
+      root.render(<ControlledInput message={null} />);
+    });
+
+    expect(host.querySelector('p')?.textContent).toBe('Helper text');
+    expect(input.getAttribute('aria-invalid')).toBeNull();
+
+    await act(async () => root.unmount());
+    document.body.removeChild(host);
+  });
 });

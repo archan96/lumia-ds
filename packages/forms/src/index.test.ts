@@ -1,7 +1,24 @@
 import { describe, expect, expectTypeOf, it } from 'vitest';
 import { z } from 'zod';
-import { email, maxLength, minLength, regex, required, zodRule } from './index';
-import type { ValidationContext, ValidationRule } from './index';
+import {
+  email,
+  maxLength,
+  minLength,
+  regex,
+  required,
+  useForm,
+  zodRule,
+} from './index';
+import type {
+  SubmitHandler,
+  UseFormReturn,
+  ValidationContext,
+  ValidationRule,
+} from './index';
+import type {
+  SubmitHandler as RhfSubmitHandler,
+  UseFormReturn as RhfUseFormReturn,
+} from 'react-hook-form';
 
 describe('@lumia/forms', () => {
   it('supports synchronous validation', async () => {
@@ -45,6 +62,20 @@ describe('@lumia/forms', () => {
     expectTypeOf(rule.validate).parameter(1).toEqualTypeOf<Ctx | undefined>();
     expectTypeOf(rule.validate).returns.toMatchTypeOf<
       Promise<boolean> | boolean
+    >();
+  });
+
+  it('re-exports react-hook-form helpers and types', () => {
+    type Values = { title: string };
+
+    expectTypeOf<SubmitHandler<Values>>().toEqualTypeOf<
+      RhfSubmitHandler<Values>
+    >();
+    expectTypeOf<UseFormReturn<Values>>().toEqualTypeOf<
+      RhfUseFormReturn<Values>
+    >();
+    expectTypeOf(useForm<Values>).returns.toMatchTypeOf<
+      RhfUseFormReturn<Values>
     >();
   });
 
