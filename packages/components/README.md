@@ -37,6 +37,7 @@ import {
   SheetDescription,
   SheetFooter,
   Flex,
+  FlatList,
 } from '@lumia/components';
 
 export function Example() {
@@ -161,6 +162,22 @@ export function Example() {
           <code className="rounded bg-muted px-2 py-1 text-xs">row</code>
         </Flex>
       </Flex>
+
+      <FlatList
+        data={[
+          { id: '1', name: 'Alpha' },
+          { id: '2', name: 'Beta' },
+          { id: '3', name: 'Gamma' },
+        ]}
+        estimatedItemSize={40}
+        renderItem={({ item }) => (
+          <div className="flex h-10 items-center px-3 text-sm">
+            {item.name}
+          </div>
+        )}
+        keyExtractor={(item) => item.id}
+        scrollContainerProps={{ style: { height: 160 } }}
+      />
     </Flex>
   );
 }
@@ -188,6 +205,13 @@ More details: see `docs/storybook.md`.
 - Supports responsive layout props for `direction`, `align`, `justify`, `wrap`, and `gap` (e.g. `direction={{ base: 'col', md: 'row' }}`).
 - Size helpers: `flex="1" | "auto" | "initial" | "none"`, `shrink={0 | 1}`, `inline` for `inline-flex`, `hiddenUntil="md"` to reveal at breakpoints.
 - Prefer composing `Flex` over adding raw Tailwind `flex-*` classes so layout behaviour is centralized.
+
+### FlatList notes
+
+- React Native–style API: `data`, `renderItem`, optional `keyExtractor`, `onEndReached`, and `onViewableItemsChanged`.
+- Virtualized rendering uses a relative container with absolutely positioned items sized by `estimatedItemSize` and optional `overscan`.
+- `onEndReached` fires when scroll progress exceeds `onEndReachedThreshold` (default `0.8`), and viewability callback is triggered when the visible window changes.
+- Pass `scrollContainerProps` for scroll height/attributes; only visible rows mount while total scroll height matches the estimated list size.
 
 ## Local development
 

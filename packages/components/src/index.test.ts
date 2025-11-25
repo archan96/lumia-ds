@@ -65,6 +65,8 @@ import {
   type TabsTriggerProps,
   Flex,
   type FlexProps,
+  FlatList,
+  type FlatListProps,
 } from './index';
 
 describe('components index barrel', () => {
@@ -106,6 +108,7 @@ describe('components index barrel', () => {
     expect(SheetFooter).toBeDefined();
 
     expect(Flex).toBeDefined();
+    expect(FlatList).toBeDefined();
   });
 
   it('provides consumer friendly prop types', () => {
@@ -189,6 +192,9 @@ describe('components index barrel', () => {
     >();
 
     expectTypeOf<FlexProps>().toMatchTypeOf<ComponentProps<typeof Flex>>();
+    expectTypeOf<FlatListProps<string>>().toMatchTypeOf<
+      Parameters<typeof FlatList>[0]
+    >();
   });
 
   it('mirrors the external package entrypoint', () => {
@@ -226,5 +232,9 @@ describe('components index barrel', () => {
 
     expectTypeOf<ExternalApi.Flex>().toEqualTypeOf<typeof Flex>();
     expectTypeOf<ExternalApi.FlexProps>().toEqualTypeOf<FlexProps>();
+    expectTypeOf<ExternalApi.FlatList>().toEqualTypeOf<typeof FlatList>();
+    expectTypeOf<ExternalApi.FlatListProps<string>>().toEqualTypeOf<
+      FlatListProps<string>
+    >();
   });
 });
