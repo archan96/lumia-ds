@@ -55,6 +55,7 @@ export type ResourcePageRefs = {
   detail?: PageSchema['id'];
   create?: PageSchema['id'];
   edit?: PageSchema['id'];
+  update?: PageSchema['id'];
 };
 
 /**
@@ -65,6 +66,43 @@ export type ResourceConfig<TFieldValues extends FieldValues = FieldValues> = {
   pages?: ResourcePageRefs;
   fields?: FieldConfig<TFieldValues>[];
   dataFetcher?: FormDataFetcher<TFieldValues>;
+};
+
+export type ResourceScreen = 'list' | 'detail' | 'create' | 'update';
+
+export type DataQueryContext<TFieldValues extends FieldValues = FieldValues> = {
+  resource: ResourceConfig<TFieldValues>;
+  screen: ResourceScreen;
+  params?: Record<string, string>;
+  permissions?: string[];
+};
+
+export type DataSourceResult<TFieldValues extends FieldValues = FieldValues> = {
+  records?: Array<Record<string, unknown>>;
+  record?: Record<string, unknown>;
+  initialValues?: Partial<TFieldValues>;
+};
+
+export type DataFetcher<TFieldValues extends FieldValues = FieldValues> = {
+  getResourceConfig: (
+    resourceName: string,
+  ) =>
+    | ResourceConfig<TFieldValues>
+    | Promise<ResourceConfig<TFieldValues> | undefined>
+    | undefined;
+  getPageSchema: (
+    pageId: string,
+  ) => PageSchema | Promise<PageSchema | undefined> | undefined;
+  getDataSource?: (
+    dataSourceId: string,
+    context: DataQueryContext<TFieldValues>,
+  ) =>
+    | DataSourceResult<TFieldValues>
+    | Promise<DataSourceResult<TFieldValues> | undefined>
+    | undefined;
+  canAccess?: (
+    context: DataQueryContext<TFieldValues>,
+  ) => boolean | Promise<boolean>;
 };
 
 export { DetailBlock, FormBlock, ListBlock } from './blocks';
@@ -82,3 +120,4 @@ export type {
   ListBlockConfig,
   ListBlockProps,
 } from './blocks';
+export { ResourcePageRenderer } from './resource-page-renderer';
