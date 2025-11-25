@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { forwardRef } from 'react';
+import { Flex } from '@lumia/components';
 import {
   LayoutBody,
   LayoutContent,
@@ -28,19 +29,21 @@ export const AdminShell = forwardRef<HTMLDivElement, AdminShellProps>(
       >
         <LayoutHeader>{header}</LayoutHeader>
 
-        <LayoutBody className="flex-col md:flex-row">
-          <div
+        <LayoutBody direction={{ base: 'col', md: 'row' }}>
+          <Flex
             data-slot="mobile-sidebar"
-            className="flex items-start gap-3 border-b border-border bg-muted/30 px-4 py-4 md:hidden"
+            align="start"
+            gap="sm"
+            className="border-b border-border bg-muted/30 px-4 py-4 md:hidden"
           >
             {sidebar}
-          </div>
+          </Flex>
 
-          <LayoutSidebar className="md:w-64 md:flex-shrink-0 md:px-4 md:py-6">
+          <LayoutSidebar shrink={{ md: 0 }} className="md:w-64 md:px-4 md:py-6">
             {sidebar}
           </LayoutSidebar>
 
-          <LayoutMain className="flex-1 min-w-0 overflow-y-auto bg-background">
+          <LayoutMain className="min-w-0 overflow-y-auto bg-background">
             <LayoutContent className="w-full">{children}</LayoutContent>
           </LayoutMain>
         </LayoutBody>

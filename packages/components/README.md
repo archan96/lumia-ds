@@ -77,11 +77,11 @@ export function Example() {
 
       <Checkbox label="Subscribe to updates" hint="Get release news via email" />
 
-      <div className="flex flex-col gap-2">
+      <Flex direction="col" gap="xs">
         <p className="text-sm font-medium text-foreground">Response time</p>
         <Radio name="sla" value="standard" label="Standard" defaultChecked />
         <Radio name="sla" value="priority" label="Priority" />
-      </div>
+      </Flex>
 
       <Tabs defaultValue="overview">
         <TabsList>
@@ -148,12 +148,18 @@ export function Example() {
         </SheetContent>
       </Sheet>
 
-      <Flex as="section" direction="row" align="center" justify="between" gap="sm">
+      <Flex
+        as="section"
+        direction="row"
+        align="center"
+        justify="between"
+        gap="sm"
+      >
         <p className="text-sm text-muted">Flex layout primitive</p>
-        <div className="flex items-center gap-2">
+        <Flex align="center" gap="xs">
           <span className="text-xs uppercase text-muted">Direction</span>
           <code className="rounded bg-muted px-2 py-1 text-xs">row</code>
-        </div>
+        </Flex>
       </Flex>
     </Flex>
   );
@@ -176,6 +182,12 @@ More details: see `docs/storybook.md`.
 - Same Radix foundation as Dialog but positioned as a drawer from any edge (`side="right" | "left" | "top" | "bottom"`).
 - Overlay uses DS overlay tokens; sheet width uses token-friendly constraints (`min(90vw, 26rem)` on sides, responsive widths on top/bottom).
 - `closeOnOverlayClick` (default `true`) controls whether overlay click dismisses; ESC and the close button always close and return focus to the trigger.
+
+### Flex notes
+
+- Supports responsive layout props for `direction`, `align`, `justify`, `wrap`, and `gap` (e.g. `direction={{ base: 'col', md: 'row' }}`).
+- Size helpers: `flex="1" | "auto" | "initial" | "none"`, `shrink={0 | 1}`, `inline` for `inline-flex`, `hiddenUntil="md"` to reveal at breakpoints.
+- Prefer composing `Flex` over adding raw Tailwind `flex-*` classes so layout behaviour is centralized.
 
 ## Local development
 
