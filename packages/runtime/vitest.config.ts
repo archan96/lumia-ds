@@ -9,6 +9,7 @@ export default defineConfig({
     alias: {
       '@lumia/components': resolve(__dirname, '../components/src'),
       '@lumia/forms': resolve(__dirname, '../forms/src'),
+      '@lumia/layout': resolve(__dirname, '../layout/src'),
     },
   },
   test: {

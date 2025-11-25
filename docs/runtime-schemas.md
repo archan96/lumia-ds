@@ -21,9 +21,41 @@ The runtime package (`@lumia/runtime`) contains the types used by a renderer to 
 ## ResourceConfig
 - Generic over the resource shape (`ResourceConfig<TValues>`).
 - `id`: resource key.
-- `pages?`: set of `PageSchema` IDs for `list`, `detail`, `create`, and `edit` views, keeping resource configuration linked back to defined pages.
+- `pages?`: set of `PageSchema` IDs for `list`, `detail`, `create`, and `edit/update` views, keeping resource configuration linked back to defined pages.
 - `fields?`: array of `FieldConfig` entries describing form inputs (`name`, `label`, `kind` of `text | textarea | select | checkbox`, optional `placeholder`/`hint`/`options`/`defaultValue`/`validation` rules).
 - `dataFetcher?`: optional `create`/`update` callbacks the `FormBlock` can call when no explicit `onSubmit` handler is provided.
+
+## DataFetcher
+- Contract the runtime renderer uses to resolve config and data:
+  - `getResourceConfig(resourceName)` → `ResourceConfig` (required).
+  - `getPageSchema(pageId)` → `PageSchema` (required).
+  - `getDataSource?(dataSourceId, context)` → `DataSourceResult` (`records`, `record`, `initialValues`) for blocks that declare a `dataSourceId`.
+  - `canAccess?(context)` → boolean for RBAC gating; returns `false` to block rendering.
+- `context` includes `{ resource, screen, params?, permissions? }` where `screen` is `list | detail | create | update`.
+
+## ResourcePageRenderer
+- Exported entry point that stitches together resource/page schemas and renders blocks:
+  - Props: `resourceName`, `screen`, optional `params`, `permissions`, and a `fetcher: DataFetcher`.
+  - Resolves the `ResourceConfig`, picks the correct `PageSchema` for the `screen`, gathers data sources, checks `canAccess`, and then renders blocks using the configured layout (`AdminShell | StackLayout | DrawerLayout`).
+  - Block rendering is automatic: `table` → `ListBlock`, `detail` → `DetailBlock`, `form` → `FormBlock` (mode defaults to `create` unless `screen === 'update'`).
+- Simple usage:
+```tsx
+import { ResourcePageRenderer } from '@lumia/runtime';
+
+const fetcher: DataFetcher = {
+  getResourceConfig: async (name) => resources[name],
+  getPageSchema: async (id) => pages[id],
+  getDataSource: async (id) => (id === 'users' ? { records: users } : {}),
+  canAccess: ({ permissions }) => permissions?.includes('view:users') ?? true,
+};
+
+<ResourcePageRenderer
+  resourceName="users"
+  screen="list"
+  permissions={['view:users']}
+  fetcher={fetcher}
+/>;
+```
 
 ## Block Components
 - `ListBlock`: DS Card-wrapped data table for array data. Props include `data: any[]`, `columns` (key/label/field/align/render), optional `title`/`description`, and `emptyMessage`. Columns can look up nested values via `field` (dot notation) and can override rendering per cell.
