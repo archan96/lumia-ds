@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { forwardRef } from 'react';
+import { Flex } from '@lumia/components';
 
 const cx = (...classes: Array<string | undefined | false | null>) =>
   classes.filter(Boolean).join(' ');
@@ -13,12 +14,10 @@ export type StackLayoutProps = HTMLAttributes<HTMLDivElement> & {
 export const StackLayout = forwardRef<HTMLDivElement, StackLayoutProps>(
   function StackLayout({ title, actions, children, className, ...props }, ref) {
     return (
-      <div
+      <Flex
         ref={ref}
-        className={cx(
-          'flex min-h-screen flex-col bg-background text-foreground',
-          className,
-        )}
+        direction="col"
+        className={cx('min-h-screen bg-background text-foreground', className)}
         {...props}
       >
         {(title || actions) && (
@@ -26,7 +25,13 @@ export const StackLayout = forwardRef<HTMLDivElement, StackLayoutProps>(
             data-slot="stack-header"
             className="sticky top-0 z-10 border-b border-border/80 bg-background/80 px-6 py-5 backdrop-blur supports-[backdrop-filter]:backdrop-blur"
           >
-            <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <Flex
+              direction={{ base: 'col', md: 'row' }}
+              align={{ md: 'center' }}
+              justify={{ md: 'between' }}
+              gap="sm"
+              className="mx-auto w-full max-w-6xl"
+            >
               {title ? (
                 <h1 className="text-xl font-semibold leading-7 tracking-tight">
                   {title}
@@ -36,26 +41,36 @@ export const StackLayout = forwardRef<HTMLDivElement, StackLayoutProps>(
               )}
 
               {actions && (
-                <div
+                <Flex
                   data-slot="stack-actions"
-                  className="flex flex-wrap items-center gap-3"
+                  align="center"
+                  wrap="wrap"
+                  gap="sm"
                 >
                   {actions}
-                </div>
+                </Flex>
               )}
-            </div>
+            </Flex>
           </div>
         )}
 
-        <div className="flex-1 bg-gradient-to-b from-background via-background to-muted/30">
-          <div
+        <Flex
+          direction="col"
+          flex="1"
+          className="bg-gradient-to-b from-background via-background to-muted/30"
+        >
+          <Flex
             data-slot="stack-body"
-            className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-6"
+            direction="col"
+            gap="lg"
+            className="mx-auto w-full max-w-5xl px-6 py-6"
           >
-            <div className="flex flex-col gap-4">{children}</div>
-          </div>
-        </div>
-      </div>
+            <Flex direction="col" gap="md">
+              {children}
+            </Flex>
+          </Flex>
+        </Flex>
+      </Flex>
     );
   },
 );

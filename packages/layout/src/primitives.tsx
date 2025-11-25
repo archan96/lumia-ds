@@ -1,24 +1,28 @@
+import { Flex, type FlexProps } from '@lumia/components';
 import type { HTMLAttributes } from 'react';
 import { forwardRef } from 'react';
 
 const cx = (...classes: Array<string | undefined | false | null>) =>
   classes.filter(Boolean).join(' ');
 
+type LayoutFlexProps = Pick<
+  FlexProps,
+  'align' | 'direction' | 'gap' | 'justify' | 'wrap'
+>;
+
 export type LayoutShellProps = HTMLAttributes<HTMLDivElement>;
 
 export const LayoutShell = forwardRef<HTMLDivElement, LayoutShellProps>(
   function LayoutShell({ children, className, ...props }, ref) {
     return (
-      <div
+      <Flex
         ref={ref}
-        className={cx(
-          'flex min-h-screen flex-col bg-background text-foreground',
-          className,
-        )}
+        direction="col"
+        className={cx('min-h-screen bg-background text-foreground', className)}
         {...props}
       >
         {children}
-      </div>
+      </Flex>
     );
   },
 );
@@ -28,58 +32,76 @@ export type LayoutHeaderProps = HTMLAttributes<HTMLDivElement>;
 export const LayoutHeader = forwardRef<HTMLDivElement, LayoutHeaderProps>(
   function LayoutHeader({ children, className, ...props }, ref) {
     return (
-      <header
+      <Flex
         ref={ref}
+        as="header"
+        align="center"
+        justify="between"
+        gap="sm"
         className={cx(
-          'flex items-center justify-between gap-3 border-b border-border bg-background/80 px-6 py-4 backdrop-blur supports-[backdrop-filter]:backdrop-blur',
+          'border-b border-border bg-background/80 px-6 py-4 backdrop-blur supports-[backdrop-filter]:backdrop-blur',
           className,
         )}
         {...props}
       >
         {children}
-      </header>
+      </Flex>
     );
   },
 );
 
-export type LayoutBodyProps = HTMLAttributes<HTMLDivElement>;
+export type LayoutBodyProps = HTMLAttributes<HTMLDivElement> & LayoutFlexProps;
 
 export const LayoutBody = forwardRef<HTMLDivElement, LayoutBodyProps>(
-  function LayoutBody({ children, className, ...props }, ref) {
+  function LayoutBody(
+    { children, className, direction, align, justify, gap, wrap, ...props },
+    ref,
+  ) {
     return (
-      <div
+      <Flex
         ref={ref}
-        className={cx('flex flex-1 min-h-0 bg-background', className)}
+        direction={direction}
+        align={align}
+        justify={justify}
+        gap={gap}
+        wrap={wrap}
+        flex="1"
+        className={cx('min-h-0 bg-background', className)}
         {...props}
       >
         {children}
-      </div>
+      </Flex>
     );
   },
 );
 
 export type LayoutSidebarProps = HTMLAttributes<HTMLDivElement> & {
   collapsed?: boolean;
+  shrink?: FlexProps['shrink'];
 };
 
 export const LayoutSidebar = forwardRef<HTMLDivElement, LayoutSidebarProps>(
   function LayoutSidebar(
-    { children, className, collapsed = false, ...props },
+    { children, className, collapsed = false, shrink, ...props },
     ref,
   ) {
     return (
-      <aside
+      <Flex
         ref={ref}
+        as="aside"
         data-collapsed={collapsed}
+        direction="col"
+        shrink={shrink}
+        hiddenUntil="md"
         className={cx(
-          'hidden border-r border-border bg-muted/40 transition-[width,transform] duration-200 md:flex md:flex-col',
+          'border-r border-border bg-muted/40 transition-[width,transform] duration-200',
           collapsed ? 'w-20' : 'w-64',
           className,
         )}
         {...props}
       >
         {children}
-      </aside>
+      </Flex>
     );
   },
 );
@@ -89,16 +111,19 @@ export type LayoutMainProps = HTMLAttributes<HTMLDivElement>;
 export const LayoutMain = forwardRef<HTMLDivElement, LayoutMainProps>(
   function LayoutMain({ children, className, ...props }, ref) {
     return (
-      <main
+      <Flex
         ref={ref}
+        as="main"
+        direction="col"
+        flex="1"
         className={cx(
-          'flex-1 overflow-hidden bg-background text-foreground',
+          'overflow-hidden bg-background text-foreground',
           className,
         )}
         {...props}
       >
         {children}
-      </main>
+      </Flex>
     );
   },
 );
@@ -113,17 +138,15 @@ export const LayoutContent = forwardRef<HTMLDivElement, LayoutContentProps>(
     ref,
   ) {
     return (
-      <div
+      <Flex
         ref={ref}
-        className={cx(
-          'mx-auto flex max-w-6xl flex-col gap-6',
-          padded && 'px-6 py-6',
-          className,
-        )}
+        direction="col"
+        gap="lg"
+        className={cx('mx-auto max-w-6xl', padded && 'px-6 py-6', className)}
         {...props}
       >
         {children}
-      </div>
+      </Flex>
     );
   },
 );

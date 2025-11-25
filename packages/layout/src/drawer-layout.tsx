@@ -1,3 +1,4 @@
+import { Flex } from '@lumia/components';
 import type { HTMLAttributes, ReactNode } from 'react';
 import { forwardRef, useEffect } from 'react';
 
@@ -36,12 +37,11 @@ export const DrawerLayout = forwardRef<HTMLDivElement, DrawerLayoutProps>(
     }
 
     return (
-      <div
+      <Flex
         ref={ref}
-        className={cx(
-          'fixed inset-0 z-40 flex items-start justify-end',
-          className,
-        )}
+        align="start"
+        justify="end"
+        className={cx('fixed inset-0 z-40', className)}
         {...props}
       >
         <button
@@ -52,26 +52,34 @@ export const DrawerLayout = forwardRef<HTMLDivElement, DrawerLayoutProps>(
           onClick={onClose}
         />
 
-        <aside
+        <Flex
           role="dialog"
           aria-modal="true"
           data-slot="drawer-panel"
-          className="relative z-10 flex h-full w-[min(90vw,26rem)] flex-col border-l border-border bg-background px-6 py-6 text-foreground shadow-2xl"
+          direction="col"
+          as="aside"
+          className="relative z-10 h-full w-[min(90vw,26rem)] border-l border-border bg-background px-6 py-6 text-foreground shadow-2xl"
         >
-          <div className="flex justify-end">
-            <button
+          <Flex justify="end">
+            <Flex
+              as="button"
               type="button"
               onClick={onClose}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              inline
+              align="center"
+              justify="center"
+              className="h-9 w-9 rounded-md text-foreground/70 transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <span aria-hidden>X</span>
               <span className="sr-only">Close</span>
-            </button>
-          </div>
+            </Flex>
+          </Flex>
 
-          <div className="flex-1 overflow-y-auto pt-2">{children}</div>
-        </aside>
-      </div>
+          <Flex flex="1" direction="col" className="overflow-y-auto pt-2">
+            {children}
+          </Flex>
+        </Flex>
+      </Flex>
     );
   },
 );

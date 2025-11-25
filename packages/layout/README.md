@@ -15,6 +15,8 @@ Layout primitives for admin-style shells. Components are placeholders and will b
 - `StackLayout` – detail-style layout with top actions and stacked content
 - `DrawerLayout` – controlled overlay drawer container for secondary flows
 
+All layout primitives now compose the shared `Flex` component, so prefer tweaking layout via props (`direction`, `align`, `justify`, etc.) instead of adding raw `flex-*` class strings.
+
 ## Usage
 
 ```tsx
