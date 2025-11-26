@@ -375,4 +375,28 @@ describe('FormBlock', () => {
     await act(async () => root.unmount());
     host.remove();
   });
+
+  it('renders an empty state when no fields are provided', async () => {
+    const handleSubmit = vi.fn();
+    const resource: ResourceConfig<MemberForm> = { id: 'members', fields: [] };
+    const { root, host } = createTestRoot();
+
+    await act(async () => {
+      root.render(
+        <FormBlock
+          title="Empty form"
+          resource={resource}
+          mode="create"
+          onSubmit={handleSubmit}
+          emptyMessage="Nothing to configure"
+        />,
+      );
+    });
+
+    expect(host.textContent ?? '').toContain('Nothing to configure');
+    expect(host.querySelector('form')).toBeNull();
+
+    await act(async () => root.unmount());
+    host.remove();
+  });
 });

@@ -6,7 +6,8 @@
     "test": "pnpm -r --if-present test -- --coverage",
     "lint": "eslint \"packages/**/*.{ts,tsx,js,jsx}\" --cache",
     "type-check": "tsc --build",
-    "build": "pnpm -r build"
+    "build": "pnpm -r build",
+    "coverage:all": "pnpm --filter @lumia/components test && pnpm --filter @lumia/runtime exec vitest run --coverage && pnpm --filter @lumia/forms exec vitest run --coverage && pnpm --filter @lumia/layout exec vitest run --coverage && pnpm --filter @lumia/theme test && pnpm --filter @lumia/tokens test"
   },
   "keywords": [],
   "author": "",
