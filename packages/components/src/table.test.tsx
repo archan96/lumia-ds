@@ -1,8 +1,15 @@
 import type { ReactNode } from 'react';
 import { act } from 'react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { createRoot } from 'react-dom/client';
-import { Table, TableBody, TableCell, TableHeader, TableRow } from './table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+  type TableSortState,
+} from './table';
 
 (
   globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
@@ -104,6 +111,58 @@ describe('Table component suite', () => {
     expect(headerCell?.className).toContain('top-0');
     expect(headerCell?.className).toContain('bg-muted/70');
     expect(headerCell?.className).toContain('uppercase');
+
+    await act(async () => root.unmount());
+    document.body.removeChild(host);
+  });
+
+  it('renders sortable column headers and cycles through directions', async () => {
+    const onSortChange = vi.fn((state: TableSortState) => state);
+
+    const { host, root } = await renderIntoDom(
+      <Table
+        columns={[
+          { id: 'name', label: 'Name', sortable: true },
+          { id: 'role', label: 'Role' },
+        ]}
+        defaultSort={{ columnId: 'name', direction: 'asc' }}
+        onSortChange={onSortChange}
+      >
+        <TableBody>
+          <TableRow>
+            <TableCell>Ada</TableCell>
+            <TableCell>Engineer</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>,
+    );
+
+    const headerCells = host.querySelectorAll('thead th');
+    expect(headerCells[0]?.getAttribute('aria-sort')).toBe('ascending');
+    expect(headerCells[1]?.getAttribute('aria-sort')).toBeNull();
+
+    const toggle = headerCells[0]?.querySelector('button');
+    expect(toggle).not.toBeNull();
+
+    await act(async () => {
+      toggle!.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    expect(onSortChange).toHaveBeenLastCalledWith({
+      columnId: 'name',
+      direction: 'desc',
+    });
+    expect(headerCells[0]?.getAttribute('aria-sort')).toBe('descending');
+
+    await act(async () => {
+      toggle!.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    expect(onSortChange).toHaveBeenLastCalledWith({
+      columnId: 'name',
+      direction: 'none',
+    });
+    expect(headerCells[0]?.getAttribute('aria-sort')).toBe('none');
 
     await act(async () => root.unmount());
     document.body.removeChild(host);

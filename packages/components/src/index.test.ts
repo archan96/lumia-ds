@@ -77,6 +77,9 @@ import {
   type TableBodyProps,
   type TableCellProps,
   type TableHeaderProps,
+  type TableColumn,
+  type TableSortDirection,
+  type TableSortState,
   type TableProps,
   type TableRowProps,
 } from './index';
@@ -217,6 +220,9 @@ describe('components index barrel', () => {
       ComponentProps<typeof Pagination>
     >();
     expectTypeOf<TableProps>().toMatchTypeOf<ComponentProps<typeof Table>>();
+    expectTypeOf<TableColumn>().toMatchTypeOf<TableColumn>();
+    expectTypeOf<TableSortDirection>().toMatchTypeOf<TableSortDirection>();
+    expectTypeOf<TableSortState>().toMatchTypeOf<TableSortState>();
     expectTypeOf<TableHeaderProps>().toMatchTypeOf<
       ComponentProps<typeof TableHeader>
     >();
@@ -274,6 +280,9 @@ describe('components index barrel', () => {
     expectTypeOf<ExternalApi.PaginationProps>().toEqualTypeOf<PaginationProps>();
     expectTypeOf<ExternalApi.Table>().toEqualTypeOf<typeof Table>();
     expectTypeOf<ExternalApi.TableProps>().toEqualTypeOf<TableProps>();
+    expectTypeOf<ExternalApi.TableColumn>().toEqualTypeOf<TableColumn>();
+    expectTypeOf<ExternalApi.TableSortDirection>().toEqualTypeOf<TableSortDirection>();
+    expectTypeOf<ExternalApi.TableSortState>().toEqualTypeOf<TableSortState>();
     expectTypeOf<ExternalApi.TableHeader>().toEqualTypeOf<typeof TableHeader>();
     expectTypeOf<ExternalApi.TableHeaderProps>().toEqualTypeOf<TableHeaderProps>();
     expectTypeOf<ExternalApi.TableBody>().toEqualTypeOf<typeof TableBody>();

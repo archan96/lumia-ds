@@ -1,6 +1,8 @@
 /* istanbul ignore file */
 import type { Meta, StoryObj } from '@storybook/react';
+import { useMemo, useState } from 'react';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from './table';
+import type { TableColumn, TableSortState } from './table';
 
 const roster = [
   {
@@ -39,6 +41,13 @@ const roster = [
     location: 'Singapore',
     status: 'Active',
   },
+];
+
+const rosterColumns: TableColumn[] = [
+  { id: 'name', label: 'Name', sortable: true },
+  { id: 'role', label: 'Role', sortable: true },
+  { id: 'location', label: 'Location' },
+  { id: 'status', label: 'Status', sortable: true, align: 'right' },
 ];
 
 const meta = {
@@ -94,6 +103,55 @@ export const Playground: Story = {
       </Table>
     </div>
   ),
+};
+
+export const SortableColumns: Story = {
+  render: (args) => {
+    const [sortState, setSortState] = useState<TableSortState | null>(null);
+
+    const sortedRoster = useMemo(() => {
+      if (!sortState || sortState.direction === 'none') return roster;
+
+      const sorted = [...roster].sort((a, b) => {
+        const key = sortState.columnId as keyof (typeof roster)[number];
+        const first = a[key]?.toString() ?? '';
+        const second = b[key]?.toString() ?? '';
+        return first.localeCompare(second, undefined, { sensitivity: 'base' });
+      });
+
+      return sortState.direction === 'asc' ? sorted : sorted.reverse();
+    }, [sortState]);
+
+    return (
+      <div className="max-w-5xl overflow-hidden rounded-lg border border-border bg-background p-4 shadow-sm">
+        <Table
+          {...args}
+          columns={rosterColumns}
+          sort={sortState}
+          onSortChange={setSortState}
+        >
+          <TableBody>
+            {(sortState ? sortedRoster : roster).map((person) => (
+              <TableRow key={person.name}>
+                <TableCell>{person.name}</TableCell>
+                <TableCell>{person.role}</TableCell>
+                <TableCell>{person.location}</TableCell>
+                <TableCell align="right">{person.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Headers are derived from the columns config. Sorting is handled by the consuming screen while the table only emits the requested direction.',
+      },
+    },
+  },
 };
 
 const manyRows = Array.from({ length: 120 }, (_, index) => ({
