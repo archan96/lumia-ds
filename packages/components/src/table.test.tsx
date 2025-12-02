@@ -1,0 +1,111 @@
+import type { ReactNode } from 'react';
+import { act } from 'react';
+import { describe, expect, it } from 'vitest';
+import { createRoot } from 'react-dom/client';
+import { Table, TableBody, TableCell, TableHeader, TableRow } from './table';
+
+(
+  globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
+).IS_REACT_ACT_ENVIRONMENT = true;
+
+const renderIntoDom = async (node: ReactNode) => {
+  const host = document.createElement('div');
+  document.body.appendChild(host);
+  const root = createRoot(host);
+
+  await act(async () => {
+    root.render(node);
+  });
+
+  return { host, root };
+};
+
+describe('Table component suite', () => {
+  it('renders with comfortable density and base styling', async () => {
+    const { host, root } = await renderIntoDom(
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableCell as="th">Name</TableCell>
+            <TableCell as="th">Role</TableCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>Ada</TableCell>
+            <TableCell>Engineer</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>,
+    );
+
+    const table = host.querySelector('table');
+    const bodyCell = host.querySelector('tbody td');
+
+    expect(table?.className).toContain('border-border/80');
+    expect(bodyCell?.className).toContain('h-12');
+    expect(bodyCell?.className).toContain('px-4');
+    expect(bodyCell?.className).toContain('border-b');
+
+    await act(async () => root.unmount());
+    document.body.removeChild(host);
+  });
+
+  it('applies compact density, zebra striping, and alignment', async () => {
+    const { host, root } = await renderIntoDom(
+      <Table density="compact" zebra>
+        <TableBody>
+          <TableRow>
+            <TableCell align="right">1</TableCell>
+            <TableCell>First</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell align="right">2</TableCell>
+            <TableCell>Second</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>,
+    );
+
+    const rows = host.querySelectorAll('tbody tr');
+    const cell = host.querySelector('tbody td');
+
+    expect(rows[0]?.className).toContain('hover:bg-muted/40');
+    expect(rows[0]?.className).toContain('odd:bg-muted/30');
+    expect(cell?.className).toContain('h-10');
+    expect(cell?.className).toContain('px-3');
+    expect(cell?.className).toContain('text-right');
+
+    await act(async () => root.unmount());
+    document.body.removeChild(host);
+  });
+
+  it('supports sticky headers with styled header cells', async () => {
+    const { host, root } = await renderIntoDom(
+      <Table stickyHeader>
+        <TableHeader>
+          <TableRow>
+            <TableCell as="th">ID</TableCell>
+            <TableCell as="th">Status</TableCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>001</TableCell>
+            <TableCell>Active</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>,
+    );
+
+    const headerCell = host.querySelector('thead th');
+
+    expect(headerCell?.className).toContain('sticky');
+    expect(headerCell?.className).toContain('top-0');
+    expect(headerCell?.className).toContain('bg-muted/70');
+    expect(headerCell?.className).toContain('uppercase');
+
+    await act(async () => root.unmount());
+    document.body.removeChild(host);
+  });
+});

@@ -42,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ## Docs and guides
 
 - Storybook usage: `docs/storybook.md`
+- Table wrapper usage: `docs/components-table.md`
 - Icon import workflow: `docs/icon-import.md`
 - Runtime schemas: `docs/runtime-schemas.md`
 - Admin app consumption guide: `docs/admin-app-consumption.md`

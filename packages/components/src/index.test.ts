@@ -67,6 +67,16 @@ import {
   type FlexProps,
   FlatList,
   type FlatListProps,
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+  type TableBodyProps,
+  type TableCellProps,
+  type TableHeaderProps,
+  type TableProps,
+  type TableRowProps,
 } from './index';
 
 describe('components index barrel', () => {
@@ -109,6 +119,11 @@ describe('components index barrel', () => {
 
     expect(Flex).toBeDefined();
     expect(FlatList).toBeDefined();
+    expect(Table).toBeDefined();
+    expect(TableHeader).toBeDefined();
+    expect(TableBody).toBeDefined();
+    expect(TableRow).toBeDefined();
+    expect(TableCell).toBeDefined();
   });
 
   it('provides consumer friendly prop types', () => {
@@ -195,6 +210,19 @@ describe('components index barrel', () => {
     expectTypeOf<FlatListProps<string>>().toMatchTypeOf<
       Parameters<typeof FlatList>[0]
     >();
+    expectTypeOf<TableProps>().toMatchTypeOf<ComponentProps<typeof Table>>();
+    expectTypeOf<TableHeaderProps>().toMatchTypeOf<
+      ComponentProps<typeof TableHeader>
+    >();
+    expectTypeOf<TableBodyProps>().toMatchTypeOf<
+      ComponentProps<typeof TableBody>
+    >();
+    expectTypeOf<TableRowProps>().toMatchTypeOf<
+      ComponentProps<typeof TableRow>
+    >();
+    expectTypeOf<TableCellProps>().toMatchTypeOf<
+      ComponentProps<typeof TableCell>
+    >();
   });
 
   it('mirrors the external package entrypoint', () => {
@@ -236,5 +264,15 @@ describe('components index barrel', () => {
     expectTypeOf<ExternalApi.FlatListProps<string>>().toEqualTypeOf<
       FlatListProps<string>
     >();
+    expectTypeOf<ExternalApi.Table>().toEqualTypeOf<typeof Table>();
+    expectTypeOf<ExternalApi.TableProps>().toEqualTypeOf<TableProps>();
+    expectTypeOf<ExternalApi.TableHeader>().toEqualTypeOf<typeof TableHeader>();
+    expectTypeOf<ExternalApi.TableHeaderProps>().toEqualTypeOf<TableHeaderProps>();
+    expectTypeOf<ExternalApi.TableBody>().toEqualTypeOf<typeof TableBody>();
+    expectTypeOf<ExternalApi.TableBodyProps>().toEqualTypeOf<TableBodyProps>();
+    expectTypeOf<ExternalApi.TableRow>().toEqualTypeOf<typeof TableRow>();
+    expectTypeOf<ExternalApi.TableRowProps>().toEqualTypeOf<TableRowProps>();
+    expectTypeOf<ExternalApi.TableCell>().toEqualTypeOf<typeof TableCell>();
+    expectTypeOf<ExternalApi.TableCellProps>().toEqualTypeOf<TableCellProps>();
   });
 });
