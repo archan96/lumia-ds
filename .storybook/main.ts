@@ -27,6 +27,7 @@ const config: StorybookConfig = {
       '@lumia/components': path.resolve(__dirname, '../packages/components/src'),
       '@lumia/layout': path.resolve(__dirname, '../packages/layout/src'),
       '@lumia/forms': path.resolve(__dirname, '../packages/forms/src'),
+      '@lumia/icons': path.resolve(__dirname, '../packages/icons/src'),
     };
 
     return config;

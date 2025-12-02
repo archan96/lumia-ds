@@ -9,3 +9,4 @@ export * from './dialog';
 export * from './sheet';
 export * from './flex';
 export * from './flat-list';
+export * from './table';
