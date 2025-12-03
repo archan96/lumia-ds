@@ -64,6 +64,9 @@ import {
   type SheetProps,
   type SheetTitleProps,
   type SheetTriggerProps,
+  ContextMenu,
+  type ContextMenuProps,
+  type MenuItemConfig,
   Menu,
   MenuContent,
   MenuItem,
@@ -144,6 +147,7 @@ describe('components index barrel', () => {
     expect(SheetDescription).toBeDefined();
     expect(SheetFooter).toBeDefined();
 
+    expect(ContextMenu).toBeDefined();
     expect(Menu).toBeDefined();
     expect(MenuTrigger).toBeDefined();
     expect(MenuContent).toBeDefined();
@@ -247,6 +251,9 @@ describe('components index barrel', () => {
     expectTypeOf<SheetFooterProps>().toMatchTypeOf<
       ComponentProps<typeof SheetFooter>
     >();
+    expectTypeOf<ContextMenuProps>().toMatchTypeOf<
+      ComponentProps<typeof ContextMenu>
+    >();
     expectTypeOf<MenuProps>().toMatchTypeOf<ComponentProps<typeof Menu>>();
     expectTypeOf<MenuTriggerProps>().toMatchTypeOf<
       ComponentProps<typeof MenuTrigger>
@@ -263,6 +270,7 @@ describe('components index barrel', () => {
     expectTypeOf<MenuSeparatorProps>().toMatchTypeOf<
       ComponentProps<typeof MenuSeparator>
     >();
+    expectTypeOf<MenuItemConfig>().toMatchTypeOf<MenuItemConfig>();
 
     expectTypeOf<FlexProps>().toMatchTypeOf<ComponentProps<typeof Flex>>();
     expectTypeOf<FlatListProps<string>>().toMatchTypeOf<
@@ -334,6 +342,8 @@ describe('components index barrel', () => {
     expectTypeOf<ExternalApi.SheetTitleProps>().toEqualTypeOf<SheetTitleProps>();
     expectTypeOf<ExternalApi.SheetDescriptionProps>().toEqualTypeOf<SheetDescriptionProps>();
     expectTypeOf<ExternalApi.SheetFooterProps>().toEqualTypeOf<SheetFooterProps>();
+    expectTypeOf<ExternalApi.ContextMenu>().toEqualTypeOf<typeof ContextMenu>();
+    expectTypeOf<ExternalApi.ContextMenuProps>().toEqualTypeOf<ContextMenuProps>();
     expectTypeOf<ExternalApi.Menu>().toEqualTypeOf<typeof Menu>();
     expectTypeOf<ExternalApi.MenuProps>().toEqualTypeOf<MenuProps>();
     expectTypeOf<ExternalApi.MenuTrigger>().toEqualTypeOf<typeof MenuTrigger>();
@@ -348,6 +358,7 @@ describe('components index barrel', () => {
       typeof MenuSeparator
     >();
     expectTypeOf<ExternalApi.MenuSeparatorProps>().toEqualTypeOf<MenuSeparatorProps>();
+    expectTypeOf<ExternalApi.MenuItemConfig>().toEqualTypeOf<MenuItemConfig>();
 
     expectTypeOf<ExternalApi.Flex>().toEqualTypeOf<typeof Flex>();
     expectTypeOf<ExternalApi.FlexProps>().toEqualTypeOf<FlexProps>();
