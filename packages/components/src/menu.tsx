@@ -6,8 +6,14 @@ import type {
 } from 'react';
 import { createContext, forwardRef, useContext, useRef } from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import { Icon, type IconId } from '@lumia/icons';
+import { Icon } from '@lumia/icons';
 import { cn } from './utils';
+import {
+  getMenuItemIconClassName,
+  menuItemBaseClasses,
+  menuItemVariants,
+  type MenuItemBase,
+} from './menu-shared';
 
 export type MenuProps = DropdownMenuPrimitive.DropdownMenuProps;
 
@@ -95,22 +101,10 @@ export const MenuContent = forwardRef<
 export type MenuItemProps = Omit<
   DropdownMenuPrimitive.DropdownMenuItemProps,
   'children'
-> & {
-  label: string;
-  icon?: IconId;
-  children?: ReactNode;
-  variant?: 'default' | 'destructive';
-};
-
-const menuItemBaseClasses =
-  'relative flex w-full cursor-default select-none items-center gap-3 rounded-md px-3 py-2 text-sm font-medium outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[disabled]:text-muted-foreground';
-
-const menuItemVariants = {
-  default:
-    'text-foreground hover:bg-muted focus:bg-muted data-[highlighted]:bg-muted data-[highlighted]:text-foreground',
-  destructive:
-    'text-destructive hover:bg-destructive/10 focus:bg-destructive/10 data-[highlighted]:bg-destructive/10 data-[highlighted]:text-destructive',
-} satisfies Record<NonNullable<MenuItemProps['variant']>, string>;
+> &
+  MenuItemBase & {
+    children?: ReactNode;
+  };
 
 export const MenuItem = forwardRef<
   ElementRef<typeof DropdownMenuPrimitive.Item>,
@@ -133,13 +127,7 @@ export const MenuItem = forwardRef<
           id={icon}
           size={18}
           aria-hidden="true"
-          className={cn(
-            'shrink-0',
-            variant === 'destructive'
-              ? 'text-destructive'
-              : 'text-muted-foreground',
-            disabled && 'text-muted-foreground',
-          )}
+          className={getMenuItemIconClassName(variant, disabled)}
         />
       ) : null}
       <span className="flex-1 truncate">{children ?? label}</span>

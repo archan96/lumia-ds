@@ -41,3 +41,42 @@ export function ActionsMenu() {
 - Keyboard support includes Arrow keys to move items, Enter/Space to select, and Escape to close and return focus to the trigger.
 - Disabled items set `aria-disabled`, remove pointer events, and are skipped by Radix focus handling.
 - Content spacing, icons, and hover/active/destructive states use DS tokens to align with other popover surfaces.
+
+## Context Menu (DS-803)
+
+Right-click / long-press menus reuse the same spacing, icons, and focus handling as the dropdown `Menu`.
+
+### Exports
+- `ContextMenu` from `@lumia/components`.
+- `MenuItemConfig` type for `items`.
+
+### Props
+- `items: MenuItemConfig[]` — label, icon, disabled, variant (`'default' | 'destructive'`), optional `id` and `onSelect`.
+- `children: ReactNode` — area that reacts to context click / long-press. Provide a focusable child (e.g., button, link, or `tabIndex={0}`) for keyboard opening (`Shift+F10` / Context Menu key).
+- `contentProps` mirrors Radix `ContextMenuContentProps` for positioning tweaks; remaining props are Radix `ContextMenuProps`.
+
+### Usage
+```tsx
+import { ContextMenu, type MenuItemConfig } from '@lumia/components';
+
+const items: MenuItemConfig[] = [
+  { id: 'edit', label: 'Edit', icon: 'user' },
+  { id: 'duplicate', label: 'Duplicate', icon: 'settings' },
+  { id: 'delete', label: 'Delete', icon: 'delete', variant: 'destructive' },
+];
+
+export function RowContextMenu({ children }: { children: React.ReactNode }) {
+  return (
+    <ContextMenu items={items}>
+      <div tabIndex={0} className="cursor-context-menu rounded-md border p-4">
+        {children}
+      </div>
+    </ContextMenu>
+  );
+}
+```
+
+### Notes
+- Opens at the cursor on right-click or long-press (mobile where supported).
+- Keyboard: focus the trigger area then press `Shift+F10` / Context Menu key; arrow keys and Enter/Space operate items like the dropdown `Menu`.
+- Disabled items set `aria-disabled` and skip selection; closing returns focus to the trigger.
