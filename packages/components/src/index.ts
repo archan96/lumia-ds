@@ -26,3 +26,4 @@ export * from './progress-bar';
 export * from './spinner';
 export * from './skeleton';
 export * from './tooltip';
+export * from './popover';
