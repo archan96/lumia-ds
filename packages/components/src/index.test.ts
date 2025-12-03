@@ -37,6 +37,9 @@ import {
   type DateRangeFilterProps,
   type DateRangePreset,
   type DateRangeValue,
+  EmptyState,
+  type EmptyStateAction,
+  type EmptyStateProps,
   Input,
   Textarea,
   type InputProps,
@@ -135,6 +138,7 @@ describe('components index barrel', () => {
     expect(TableBody).toBeDefined();
     expect(TableRow).toBeDefined();
     expect(TableCell).toBeDefined();
+    expect(EmptyState).toBeDefined();
   });
 
   it('provides consumer friendly prop types', () => {
@@ -245,6 +249,10 @@ describe('components index barrel', () => {
     expectTypeOf<TableCellProps>().toMatchTypeOf<
       ComponentProps<typeof TableCell>
     >();
+    expectTypeOf<EmptyStateProps>().toMatchTypeOf<
+      ComponentProps<typeof EmptyState>
+    >();
+    expectTypeOf<EmptyStateAction>().toMatchTypeOf<EmptyStateAction>();
   });
 
   it('mirrors the external package entrypoint', () => {
@@ -307,5 +315,8 @@ describe('components index barrel', () => {
     expectTypeOf<ExternalApi.TableRowProps>().toEqualTypeOf<TableRowProps>();
     expectTypeOf<ExternalApi.TableCell>().toEqualTypeOf<typeof TableCell>();
     expectTypeOf<ExternalApi.TableCellProps>().toEqualTypeOf<TableCellProps>();
+    expectTypeOf<ExternalApi.EmptyState>().toEqualTypeOf<typeof EmptyState>();
+    expectTypeOf<ExternalApi.EmptyStateProps>().toEqualTypeOf<EmptyStateProps>();
+    expectTypeOf<ExternalApi.EmptyStateAction>().toEqualTypeOf<EmptyStateAction>();
   });
 });
