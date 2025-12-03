@@ -48,8 +48,10 @@ import {
   type NoResultsProps,
   Input,
   Textarea,
+  NumberInput,
   type InputProps,
   type TextareaProps,
+  type NumberInputProps,
   Radio,
   type RadioProps,
   Select,
@@ -132,6 +134,7 @@ describe('components index barrel', () => {
     expect(buttonStyles.base).toBeDefined();
     expect(Input).toBeDefined();
     expect(Textarea).toBeDefined();
+    expect(NumberInput).toBeDefined();
     expect(Select).toBeDefined();
     expect(Checkbox).toBeDefined();
     expect(Radio).toBeDefined();
@@ -198,6 +201,9 @@ describe('components index barrel', () => {
     expectTypeOf<InputProps>().toMatchTypeOf<ComponentProps<typeof Input>>();
     expectTypeOf<TextareaProps>().toMatchTypeOf<
       ComponentProps<typeof Textarea>
+    >();
+    expectTypeOf<NumberInputProps>().toMatchTypeOf<
+      ComponentProps<typeof NumberInput>
     >();
     expectTypeOf<SelectProps>().toMatchTypeOf<ComponentProps<typeof Select>>();
     expectTypeOf<CheckboxProps>().toMatchTypeOf<
@@ -359,6 +365,8 @@ describe('components index barrel', () => {
     expectTypeOf<ExternalApi.ButtonProps>().toEqualTypeOf<ButtonProps>();
     expectTypeOf<ExternalApi.InputProps>().toEqualTypeOf<InputProps>();
     expectTypeOf<ExternalApi.TextareaProps>().toEqualTypeOf<TextareaProps>();
+    expectTypeOf<ExternalApi.NumberInput>().toEqualTypeOf<typeof NumberInput>();
+    expectTypeOf<ExternalApi.NumberInputProps>().toEqualTypeOf<NumberInputProps>();
     expectTypeOf<ExternalApi.SelectProps>().toEqualTypeOf<SelectProps>();
     expectTypeOf<ExternalApi.CheckboxProps>().toEqualTypeOf<CheckboxProps>();
     expectTypeOf<ExternalApi.RadioProps>().toEqualTypeOf<RadioProps>();
