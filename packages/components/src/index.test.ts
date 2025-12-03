@@ -96,6 +96,8 @@ import {
   type FlatListProps,
   Pagination,
   type PaginationProps,
+  SideNavItem,
+  type SideNavItemProps,
   Table,
   TableBody,
   TableCell,
@@ -162,6 +164,7 @@ describe('components index barrel', () => {
     expect(Flex).toBeDefined();
     expect(FlatList).toBeDefined();
     expect(Pagination).toBeDefined();
+    expect(SideNavItem).toBeDefined();
     expect(Table).toBeDefined();
     expect(TableHeader).toBeDefined();
     expect(TableBody).toBeDefined();
@@ -287,6 +290,9 @@ describe('components index barrel', () => {
     expectTypeOf<PaginationProps>().toMatchTypeOf<
       ComponentProps<typeof Pagination>
     >();
+    expectTypeOf<SideNavItemProps>().toMatchTypeOf<
+      ComponentProps<typeof SideNavItem>
+    >();
     expectTypeOf<TableProps>().toMatchTypeOf<ComponentProps<typeof Table>>();
     expectTypeOf<TableColumn>().toMatchTypeOf<TableColumn>();
     expectTypeOf<TableSortDirection>().toMatchTypeOf<TableSortDirection>();
@@ -381,6 +387,8 @@ describe('components index barrel', () => {
     >();
     expectTypeOf<ExternalApi.Pagination>().toEqualTypeOf<typeof Pagination>();
     expectTypeOf<ExternalApi.PaginationProps>().toEqualTypeOf<PaginationProps>();
+    expectTypeOf<ExternalApi.SideNavItem>().toEqualTypeOf<typeof SideNavItem>();
+    expectTypeOf<ExternalApi.SideNavItemProps>().toEqualTypeOf<SideNavItemProps>();
     expectTypeOf<ExternalApi.Table>().toEqualTypeOf<typeof Table>();
     expectTypeOf<ExternalApi.TableProps>().toEqualTypeOf<TableProps>();
     expectTypeOf<ExternalApi.TableColumn>().toEqualTypeOf<TableColumn>();
