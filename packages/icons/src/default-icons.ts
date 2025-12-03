@@ -2,6 +2,8 @@ import {
   AlertTriangle,
   BarChart3,
   CheckCircle2,
+  ChevronDown,
+  ChevronUp,
   Filter,
   Home,
   Info,
@@ -29,6 +31,8 @@ export const defaultIconComponents = {
   check: CheckCircle2,
   alert: AlertTriangle,
   info: Info,
+  'chevron-up': ChevronUp,
+  'chevron-down': ChevronDown,
 } satisfies Record<string, IconComponent>;
 
 export function seedDefaultIcons(registerIcon: RegisterIconFn) {
