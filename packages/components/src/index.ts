@@ -10,6 +10,7 @@ export * from './sheet';
 export * from './menu';
 export * from './context-menu';
 export * from './segmented-control';
+export * from './alert';
 export * from './flex';
 export * from './flat-list';
 export * from './table';
