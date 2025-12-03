@@ -12,3 +12,4 @@ export * from './flat-list';
 export * from './table';
 export * from './pagination';
 export * from './date-range-filter';
+export * from './filter-bar';
