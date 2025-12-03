@@ -25,3 +25,4 @@ export * from './toast';
 export * from './progress-bar';
 export * from './spinner';
 export * from './skeleton';
+export * from './tooltip';
