@@ -2,13 +2,24 @@ import React, { useState, useRef } from 'react';
 import { DocNode, TextNode, Heading } from '../schema/docSchema';
 import { LumiaEditor } from '../lumia-editor/lumia-editor';
 
+/**
+ * Props for the LumiaInlineEditor component.
+ */
 export interface LumiaInlineEditorProps {
+  /** The current editor document state as a JSON tree. */
   value: DocNode;
+  /** Callback fired when the document changes. */
   onChange: (value: DocNode) => void;
+  /** Placeholder text to display when the document is empty. */
   placeholder?: string;
+  /** Optional class name for the container. */
   className?: string;
 }
 
+/**
+ * A wrapper component for inline editing of text blocks.
+ * Renders as static typography when not focused, and switches to an editor on click/focus.
+ */
 export const LumiaInlineEditor = ({
   value,
   onChange,
@@ -118,9 +129,8 @@ export const LumiaInlineEditor = ({
     <div
       ref={containerRef}
       onClick={() => setIsEditing(true)}
-      className={`lumia-inline-editor-view cursor-text hover:bg-gray-50 p-1 rounded -m-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
-        className || ''
-      }`}
+      className={`lumia-inline-editor-view cursor-text hover:bg-gray-50 p-1 rounded -m-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${className || ''
+        }`}
       data-testid="lumia-inline-editor-view-mode"
       tabIndex={0}
       onFocus={() => setIsEditing(true)}

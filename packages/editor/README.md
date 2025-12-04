@@ -567,3 +567,40 @@ The Lumia editor meets the following accessibility standards:
 
 For accessibility issues or suggestions, please file an issue on GitHub.
 
+
+## Development
+
+### Running Tests
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test -- --watch
+
+# Run tests with coverage
+pnpm test -- --coverage
+```
+
+### Coverage Reports
+
+The package maintains 80% minimum coverage for:
+- Lines
+- Branches
+- Functions
+- Statements
+
+Coverage reports are generated in `coverage/` directory.
+
+### Linting
+
+```bash
+pnpm lint
+```
+
+### Type Checking
+
+```bash
+pnpm type-check
+```

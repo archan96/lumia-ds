@@ -13,7 +13,7 @@ import { normalizeFontId } from '../config/fontConfig';
  * Options for HTML serialization.
  */
 export interface HtmlSerializerOptions {
-  /** Optional font configuration for rendering fonts */
+  /** Optional font configuration to use for class name generation. */
   fonts?: FontConfig;
 }
 
@@ -27,35 +27,22 @@ const FONT_STACKS: Record<string, string> = {
   roboto:
     '"Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif',
   'open-sans':
-    '"Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    '"Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   montserrat:
-    '"Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    '"Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   lora: '"Lora", Georgia, "Times New Roman", serif',
   merriweather: '"Merriweather", Georgia, "Times New Roman", serif',
   'roboto-mono': '"Roboto Mono", "Courier New", Courier, monospace',
   'source-code-pro': '"Source Code Pro", "Courier New", Courier, monospace',
 };
 
-/**
- * Get the CSS font-family stack for a given font ID.
- * @param fontId The font ID
- * @param config Optional font configuration for validation
- * @returns CSS font-family value
- * @deprecated Use getFontClassName for class-based font application
- */
 export function getFontFamily(
   fontId: string | undefined,
   config?: FontConfig,
 ): string | undefined {
   if (!fontId) return undefined;
-
-  // Normalize font ID if config is provided
-  const normalizedFontId = config ? normalizeFontId(fontId, config) : fontId;
-
-  return (
-    FONT_STACKS[normalizedFontId] ||
-    FONT_STACKS[config?.defaultFontId || 'inter']
-  );
+  const normalizedId = config ? normalizeFontId(fontId, config) : fontId;
+  return FONT_STACKS[normalizedId];
 }
 
 /**
@@ -71,15 +58,14 @@ export function getFontClassName(
 ): string | undefined {
   if (!fontId) return undefined;
 
-  // Normalize font ID if config is provided
-  const normalizedFontId = config ? normalizeFontId(fontId, config) : fontId;
+  const normalizedId = config ? normalizeFontId(fontId, config) : fontId;
 
-  // Don't generate class for default font (no redundant classes)
-  if (config && normalizedFontId === config.defaultFontId) {
+  // If it's the default font (and we have a config), don't return a class
+  if (config && normalizedId === config.defaultFontId) {
     return undefined;
   }
 
-  return `font-${normalizedFontId}`;
+  return `font-${normalizedId}`;
 }
 
 /**
@@ -92,7 +78,11 @@ export function docNodeToHtml(
   doc: DocNode,
   options?: HtmlSerializerOptions,
 ): string {
-  return serializeNode(doc, options);
+  if (doc.type !== 'doc') {
+    throw new Error('Root node must be of type "doc"');
+  }
+
+  return serializeChildren(doc, options);
 }
 
 /**

@@ -25,16 +25,30 @@ import {
   normalizeFontId,
 } from '../config/fontConfig';
 
+/**
+ * Props for the LumiaEditor component.
+ */
 export interface LumiaEditorProps {
+  /** The current editor document state as a JSON tree. */
   value: DocNode;
+  /** Callback fired when the document changes. */
   onChange: (value: DocNode) => void;
+  /** Whether the editor is in read-only mode. */
   readOnly?: boolean;
+  /** The visual variant of the editor toolbar. Defaults to 'full'. */
   variant?: 'full' | 'compact';
+  /** The operation mode of the editor. Defaults to 'document'. */
   mode?: 'document' | 'inline';
+  /** Configuration for available fonts. */
   fonts?: FontConfig;
+  /** Optional class name for the container. */
   className?: string;
 }
 
+/**
+ * The main editor component for Lumia Design System.
+ * Provides a rich text editing experience with configurable toolbar and fonts.
+ */
 export const LumiaEditor = ({
   value,
   onChange,
@@ -150,9 +164,9 @@ export const LumiaEditor = ({
         // Reset attrs if switching to/from heading
         attrs: isHeading
           ? {
-              level: parseInt(type.replace('heading', ''), 10) || 1,
-              fontId: existingFontId,
-            }
+            level: parseInt(type.replace('heading', ''), 10) || 1,
+            fontId: existingFontId,
+          }
           : firstBlock.attrs
             ? { ...firstBlock.attrs, fontId: existingFontId }
             : existingFontId

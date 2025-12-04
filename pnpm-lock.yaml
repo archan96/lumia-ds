@@ -237,6 +237,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.1
         version: 18.3.7(@types/react@18.3.27)
+      '@vitest/coverage-v8':
+        specifier: ^2.1.9
+        version: 2.1.9(vitest@2.1.9(@types/node@20.19.25)(happy-dom@20.0.10)(jsdom@27.2.0)(terser@5.44.1))
       axe-core:
         specifier: ^4.11.0
         version: 4.11.0
