@@ -3,12 +3,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
+  CardSubtitle,
   CardTitle,
 } from './card';
 import { Button } from './button';
+import { Icon } from '@lumia/icons';
 
 const meta = {
   title: 'Components/Card',
@@ -24,9 +25,16 @@ type Story = StoryObj<typeof Card>;
 
 const CardBody = () => (
   <>
-    <CardHeader>
+    <CardHeader
+      icon={<Icon id="sparkle" size={18} aria-hidden />}
+      actions={
+        <Button variant="ghost" size="sm">
+          Manage
+        </Button>
+      }
+    >
       <CardTitle>Card title</CardTitle>
-      <CardDescription>Subtitle or supporting copy goes here.</CardDescription>
+      <CardSubtitle>Subtitle or supporting copy goes here.</CardSubtitle>
     </CardHeader>
     <CardContent>
       <p className="text-sm leading-6 text-foreground">
@@ -34,13 +42,19 @@ const CardBody = () => (
         or nest form fields, lists, and summaries.
       </p>
     </CardContent>
-    <CardFooter>
-      <div className="flex gap-3">
-        <Button variant="secondary" size="sm">
-          Dismiss
-        </Button>
-        <Button size="sm">View details</Button>
-      </div>
+    <CardFooter
+      actions={
+        <div className="flex gap-3">
+          <Button variant="secondary" size="sm">
+            Dismiss
+          </Button>
+          <Button size="sm">View details</Button>
+        </div>
+      }
+    >
+      <p className="text-sm leading-5 text-muted">
+        Secondary text can sit with footer actions.
+      </p>
     </CardFooter>
   </>
 );
