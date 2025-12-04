@@ -34,12 +34,14 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardSubtitle,
   CardTitle,
   type CardContentProps,
   type CardDescriptionProps,
   type CardFooterProps,
   type CardHeaderProps,
   type CardProps,
+  type CardSubtitleProps,
   type CardTitleProps,
   StatTile,
   type StatTileDelta,
@@ -194,6 +196,7 @@ describe('components index barrel', () => {
     expect(Card).toBeDefined();
     expect(CardHeader).toBeDefined();
     expect(CardTitle).toBeDefined();
+    expect(CardSubtitle).toBeDefined();
     expect(CardDescription).toBeDefined();
     expect(CardContent).toBeDefined();
     expect(CardFooter).toBeDefined();
@@ -313,6 +316,9 @@ describe('components index barrel', () => {
     >();
     expectTypeOf<CardTitleProps>().toMatchTypeOf<
       ComponentProps<typeof CardTitle>
+    >();
+    expectTypeOf<CardSubtitleProps>().toMatchTypeOf<
+      ComponentProps<typeof CardSubtitle>
     >();
     expectTypeOf<CardDescriptionProps>().toMatchTypeOf<
       ComponentProps<typeof CardDescription>
@@ -519,6 +525,7 @@ describe('components index barrel', () => {
     expectTypeOf<ExternalApi.CardProps>().toEqualTypeOf<CardProps>();
     expectTypeOf<ExternalApi.CardHeaderProps>().toEqualTypeOf<CardHeaderProps>();
     expectTypeOf<ExternalApi.CardTitleProps>().toEqualTypeOf<CardTitleProps>();
+    expectTypeOf<ExternalApi.CardSubtitleProps>().toEqualTypeOf<CardSubtitleProps>();
     expectTypeOf<ExternalApi.CardDescriptionProps>().toEqualTypeOf<CardDescriptionProps>();
     expectTypeOf<ExternalApi.CardContentProps>().toEqualTypeOf<CardContentProps>();
     expectTypeOf<ExternalApi.CardFooterProps>().toEqualTypeOf<CardFooterProps>();

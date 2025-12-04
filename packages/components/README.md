@@ -15,9 +15,9 @@ import {
   Button,
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
+  CardSubtitle,
   CardTitle,
   Checkbox,
   Input,
@@ -72,7 +72,7 @@ export function Example() {
       <Card className="max-w-md">
         <CardHeader>
           <CardTitle>Billing overview</CardTitle>
-          <CardDescription>Quick stats for this month</CardDescription>
+          <CardSubtitle>Quick stats for this month</CardSubtitle>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-foreground">
