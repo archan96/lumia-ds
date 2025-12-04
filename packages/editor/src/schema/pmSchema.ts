@@ -9,28 +9,92 @@ export const pmSchema = new Schema({
       content: 'block+',
     },
     paragraph: {
+      attrs: { fontId: { default: null } },
       content: 'inline*',
       group: 'block',
-      parseDOM: [{ tag: 'p' }],
-      toDOM() {
-        return ['p', 0];
+      parseDOM: [
+        {
+          tag: 'p',
+          getAttrs(dom) {
+            return {
+              fontId: (dom as HTMLElement).getAttribute('data-font-id'),
+            };
+          },
+        },
+      ],
+      toDOM(node) {
+        const attrs = node.attrs.fontId
+          ? { 'data-font-id': node.attrs.fontId }
+          : {};
+        return ['p', attrs, 0];
       },
     },
     heading: {
-      attrs: { level: { default: 1 } },
+      attrs: { level: { default: 1 }, fontId: { default: null } },
       content: 'inline*',
       group: 'block',
       defining: true,
       parseDOM: [
-        { tag: 'h1', attrs: { level: 1 } },
-        { tag: 'h2', attrs: { level: 2 } },
-        { tag: 'h3', attrs: { level: 3 } },
-        { tag: 'h4', attrs: { level: 4 } },
-        { tag: 'h5', attrs: { level: 5 } },
-        { tag: 'h6', attrs: { level: 6 } },
+        {
+          tag: 'h1',
+          getAttrs(dom) {
+            return {
+              level: 1,
+              fontId: (dom as HTMLElement).getAttribute('data-font-id'),
+            };
+          },
+        },
+        {
+          tag: 'h2',
+          getAttrs(dom) {
+            return {
+              level: 2,
+              fontId: (dom as HTMLElement).getAttribute('data-font-id'),
+            };
+          },
+        },
+        {
+          tag: 'h3',
+          getAttrs(dom) {
+            return {
+              level: 3,
+              fontId: (dom as HTMLElement).getAttribute('data-font-id'),
+            };
+          },
+        },
+        {
+          tag: 'h4',
+          getAttrs(dom) {
+            return {
+              level: 4,
+              fontId: (dom as HTMLElement).getAttribute('data-font-id'),
+            };
+          },
+        },
+        {
+          tag: 'h5',
+          getAttrs(dom) {
+            return {
+              level: 5,
+              fontId: (dom as HTMLElement).getAttribute('data-font-id'),
+            };
+          },
+        },
+        {
+          tag: 'h6',
+          getAttrs(dom) {
+            return {
+              level: 6,
+              fontId: (dom as HTMLElement).getAttribute('data-font-id'),
+            };
+          },
+        },
       ],
       toDOM(node) {
-        return ['h' + node.attrs.level, 0];
+        const attrs = node.attrs.fontId
+          ? { 'data-font-id': node.attrs.fontId }
+          : {};
+        return ['h' + node.attrs.level, attrs, 0];
       },
     },
     bullet_list: {
@@ -64,10 +128,23 @@ export const pmSchema = new Schema({
       },
     },
     list_item: {
+      attrs: { fontId: { default: null } },
       content: 'paragraph block*',
-      parseDOM: [{ tag: 'li' }],
-      toDOM() {
-        return ['li', 0];
+      parseDOM: [
+        {
+          tag: 'li',
+          getAttrs(dom) {
+            return {
+              fontId: (dom as HTMLElement).getAttribute('data-font-id'),
+            };
+          },
+        },
+      ],
+      toDOM(node) {
+        const attrs = node.attrs.fontId
+          ? { 'data-font-id': node.attrs.fontId }
+          : {};
+        return ['li', attrs, 0];
       },
       defining: true,
     },

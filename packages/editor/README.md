@@ -256,4 +256,80 @@ const docWithFont: Doc = {
 Invalid or disallowed fonts are automatically normalized to `defaultFontId`:
 - Font ID not in `allFonts` → `defaultFontId`
 - Font ID not in `allowedFonts` → `defaultFontId`
-- No font ID specified → `defaultFontId`
+- No font ID specified → uses `defaultFontId` when rendering
+
+#### Document Loading with Font Normalization
+
+When loading existing documents, you can automatically normalize fonts using `jsonToEditorState`:
+
+```typescript
+import { jsonToEditorState, normalizeDocumentFonts } from '@lumia/editor';
+
+// Option 1: Normalize during editor state conversion
+const editorState = jsonToEditorState(doc, brandFonts);
+
+// Option 2: Normalize document directly (pure function)
+const normalizedDoc = normalizeDocumentFonts(doc, brandFonts);
+```
+
+This ensures that documents created before font restrictions were in place are automatically updated to comply with brand guidelines.
+
+## HTML Serialization
+
+The editor supports exporting documents to HTML with proper font-family CSS stacks:
+
+### `docNodeToHtml(doc: DocNode, options?: HtmlSerializerOptions): string`
+
+Convert a `DocNode` to an HTML string with CSS font styles:
+
+```typescript
+import { docNodeToHtml } from '@lumia/editor';
+
+const html = docNodeToHtml(doc, { fontConfig: brandFonts });
+// Output: <p style="font-family: 'Roboto', sans-serif">Hello World</p>
+```
+
+### Font Family CSS Stacks
+
+The serializer includes fallback fonts for all default fonts:
+- `inter` → `"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`
+- `roboto` → `"Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif`
+- And more...
+
+Invalid fonts are automatically normalized to the default font's CSS stack when `fontConfig` is provided.
+
+### Example: Complete Workflow with Font Enforcement
+
+```typescript
+import {
+  LumiaEditor,
+  docNodeToHtml,
+  normalizeDocumentFonts,
+  type DocNode,
+  type FontConfig,
+} from '@lumia/editor';
+
+const brandFonts: FontConfig = {
+  allFonts: [
+    { id: 'brand-sans', label: 'Brand Sans', category: 'sans' },
+    { id: 'brand-serif', label: 'Brand Serif', category: 'serif' },
+  ],
+  allowedFonts: ['brand-sans'], // Only allow brand-sans
+  defaultFontId: 'brand-sans',
+};
+
+// Load and normalize existing document
+const loadedDoc: DocNode = JSON.parse(localStorage.getItem('doc'));
+const normalizedDoc = normalizeDocumentFonts(loadedDoc, brandFonts);
+
+// Edit with enforced fonts
+<LumiaEditor
+  value={normalizedDoc}
+  onChange={setDoc}
+  fonts={brandFonts}
+/>
+
+// Export to HTML with correct font stacks
+const html = docNodeToHtml(normalizedDoc, { fontConfig: brandFonts });
+```
+
