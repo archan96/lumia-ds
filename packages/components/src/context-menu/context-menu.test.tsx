@@ -29,13 +29,16 @@ const contextItems = (onSelect?: () => void): MenuItemConfig[] => [
   { id: 'delete', label: 'Delete', icon: 'delete', variant: 'destructive' },
 ];
 
-const waitFor = async (callback: () => void | Promise<void>, timeout = 1000) => {
+const waitFor = async (
+  callback: () => void | Promise<void>,
+  timeout = 1000,
+) => {
   const start = Date.now();
   while (Date.now() - start < timeout) {
     try {
       await callback();
       return;
-    } catch (e) {
+    } catch {
       await new Promise((resolve) => setTimeout(resolve, 50));
     }
   }
@@ -43,7 +46,6 @@ const waitFor = async (callback: () => void | Promise<void>, timeout = 1000) => 
 };
 
 describe('ContextMenu', () => {
-
   it('opens on context click, reuses menu styling, and closes after selection', async () => {
     const { root, host } = createTestRoot();
     const onSelect = vi.fn();
@@ -73,7 +75,7 @@ describe('ContextMenu', () => {
         }),
       );
     });
-    await act(async () => { });
+    await act(async () => {});
 
     const content = document.body.querySelector(
       '[data-lumia-menu-content]',
@@ -90,7 +92,7 @@ describe('ContextMenu', () => {
       );
       firstItem?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    await act(async () => { });
+    await act(async () => {});
 
     expect(onSelect).toHaveBeenCalledTimes(1);
     expect(document.body.querySelector('[data-lumia-menu-content]')).toBeNull();
@@ -127,7 +129,7 @@ describe('ContextMenu', () => {
         }),
       );
     });
-    await act(async () => { });
+    await act(async () => {});
 
     const content = document.body.querySelector(
       '[data-lumia-menu-content]',
@@ -142,14 +144,14 @@ describe('ContextMenu', () => {
         new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
       );
     });
-    await act(async () => { });
+    await act(async () => {});
 
     await act(async () => {
       document.activeElement?.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
       );
     });
-    await act(async () => { });
+    await act(async () => {});
 
     await waitFor(() => {
       expect(highlightedText()).toMatch(/Duplicate|Delete/);
@@ -160,7 +162,7 @@ describe('ContextMenu', () => {
         new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
       );
     });
-    await act(async () => { });
+    await act(async () => {});
 
     expect(document.body.querySelector('[data-lumia-menu-content]')).toBeNull();
     await new Promise((resolve) => setTimeout(resolve, 0));

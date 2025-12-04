@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import type { Meta, StoryObj } from '@storybook/react';
 import { ResourcePageRenderer } from './resource-page-renderer';
-import type { DataFetcher, PageSchema, ResourceConfig } from './index';
+import type { DataFetcher, PageSchema, ResourceConfig } from '../index';
 
 const resource: ResourceConfig = {
   id: 'projects',

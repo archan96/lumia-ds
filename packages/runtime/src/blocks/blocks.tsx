@@ -26,7 +26,7 @@ import {
   type UseFormReturn,
   type ValidationRule,
 } from '@lumia/forms';
-import type { ResourceConfig } from './index';
+import type { ResourceConfig } from '../index';
 
 type Alignment = 'start' | 'center' | 'end';
 

@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { Simulate } from 'react-dom/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 import { ValidatedInput } from './validated-input';
-import { minLength, required } from './validation';
+import { minLength, required } from '../validation/validation';
 
 (
   globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }

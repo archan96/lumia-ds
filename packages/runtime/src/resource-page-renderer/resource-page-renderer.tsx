@@ -1,14 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { AdminShell, DrawerLayout, StackLayout } from '@lumia/layout';
-import {
-  DetailBlock,
-  FormBlock,
-  ListBlock,
-  type DetailBlockProps,
-  type FormBlockProps,
-  type ListBlockProps,
-} from './blocks';
+import { DetailBlock, FormBlock, ListBlock } from '../blocks/blocks';
 import type {
   BlockSchema,
   DataFetcher,
@@ -18,7 +11,10 @@ import type {
   ResourceConfig,
   ResourcePageRefs,
   ResourceScreen,
-} from './index';
+  DetailBlockProps,
+  FormBlockProps,
+  ListBlockProps,
+} from '../index';
 
 type RendererState =
   | { status: 'loading' }

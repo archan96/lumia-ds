@@ -8,7 +8,7 @@ import {
   LayoutMain,
   LayoutShell,
   LayoutSidebar,
-} from './primitives';
+} from '../primitives/primitives';
 
 const cx = (...classes: Array<string | undefined | false | null>) =>
   classes.filter(Boolean).join(' ');

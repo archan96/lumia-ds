@@ -1,5 +1,5 @@
 import type { FieldValues } from '@lumia/forms';
-import type { FieldConfig, FormDataFetcher } from './blocks';
+import type { FieldConfig, FormDataFetcher } from './blocks/blocks';
 
 /**
  * UI primitives the runtime renderer understands.
@@ -111,7 +111,7 @@ export type DataFetcher<TFieldValues extends FieldValues = FieldValues> = {
   ) => boolean | Promise<boolean>;
 };
 
-export { DetailBlock, FormBlock, ListBlock } from './blocks';
+export { DetailBlock, FormBlock, ListBlock } from './blocks/blocks';
 export type {
   DetailBlockConfig,
   DetailBlockField,
@@ -125,5 +125,6 @@ export type {
   ListBlockColumn,
   ListBlockConfig,
   ListBlockProps,
-} from './blocks';
-export { ResourcePageRenderer } from './resource-page-renderer';
+} from './blocks/blocks';
+export * from './blocks/blocks';
+export * from './resource-page-renderer/resource-page-renderer';

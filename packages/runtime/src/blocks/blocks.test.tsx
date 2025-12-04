@@ -4,7 +4,7 @@ import { Simulate } from 'react-dom/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 import { required } from '@lumia/forms';
 import { DetailBlock, FormBlock, ListBlock } from './blocks';
-import type { ResourceConfig } from './index';
+import type { ResourceConfig } from '../index';
 
 (
   globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
