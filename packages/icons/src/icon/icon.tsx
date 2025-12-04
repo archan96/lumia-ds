@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
-import { getIcon } from './registry';
-import type { IconId } from './types';
+import { getIcon } from '../registry';
+import type { IconId } from '../types';
 
 export type IconProps = Omit<SVGProps<SVGSVGElement>, 'id'> & {
   id: IconId;

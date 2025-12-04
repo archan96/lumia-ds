@@ -4,8 +4,8 @@ import { Simulate } from 'react-dom/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 import { Controller, useForm, useFormContext } from 'react-hook-form';
 import { LumiaForm } from './form';
-import { ValidatedInput } from './validated-input';
-import { required } from './validation';
+import { ValidatedInput } from '../validated-input/validated-input';
+import { required } from '../validation/validation';
 
 (
   globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }

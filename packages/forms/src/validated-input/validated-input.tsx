@@ -2,7 +2,7 @@ import type { ChangeEvent, FocusEvent } from 'react';
 import { forwardRef, useCallback, useRef, useState } from 'react';
 import type { InputProps } from '@lumia/components';
 import { Input } from '@lumia/components';
-import type { ValidationRule } from './validation';
+import type { ValidationRule } from '../validation/validation';
 
 type ValidatedInputProps = {
   value: string;

@@ -2,7 +2,7 @@ import { act, useEffect } from 'react';
 import { describe, it, expect } from 'vitest';
 import { createRoot } from 'react-dom/client';
 import { defaultTheme, themeToCSSVars } from '@lumia/tokens';
-import { ThemeProvider } from './index';
+import { ThemeProvider } from '../index';
 import {
   applyCssVarsToTarget,
   getIsomorphicLayoutEffect,

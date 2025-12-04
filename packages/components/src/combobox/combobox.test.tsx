@@ -80,13 +80,16 @@ vi.mock('./popover', () => {
   return { Popover, PopoverContent, PopoverTrigger };
 });
 
-const waitFor = async (callback: () => void | Promise<void>, timeout = 1000) => {
+const waitFor = async (
+  callback: () => void | Promise<void>,
+  timeout = 1000,
+) => {
   const start = Date.now();
   while (Date.now() - start < timeout) {
     try {
       await callback();
       return;
-    } catch (e) {
+    } catch {
       await new Promise((resolve) => setTimeout(resolve, 50));
     }
   }
@@ -115,7 +118,7 @@ describe('Combobox', () => {
       root.render(
         <Combobox
           value={null}
-          onChange={() => { }}
+          onChange={() => {}}
           loadOptions={loadOptions}
           placeholder="Pick a value"
         />,
@@ -190,7 +193,7 @@ describe('Combobox', () => {
       Simulate.keyDown(input, { key: 'Enter' });
       await Promise.resolve();
     });
-    await act(async () => { });
+    await act(async () => {});
 
     expect(handleChange).toHaveBeenCalledWith({
       label: 'Beta',
@@ -213,7 +216,7 @@ describe('Combobox', () => {
 
     await act(async () => {
       root.render(
-        <Combobox value={null} onChange={() => { }} loadOptions={loadOptions} />,
+        <Combobox value={null} onChange={() => {}} loadOptions={loadOptions} />,
       );
     });
 
@@ -230,7 +233,7 @@ describe('Combobox', () => {
     await act(async () => {
       resolveOptions?.();
     });
-    await act(async () => { });
+    await act(async () => {});
 
     expect(document.body.textContent?.includes('No results')).toBe(true);
   });

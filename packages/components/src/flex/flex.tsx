@@ -3,7 +3,7 @@ import type {
   ComponentPropsWithoutRef,
   ElementType,
 } from 'react';
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { cn } from '../lib/utils';
 
 type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -221,4 +221,6 @@ const FlexWithRef = forwardRef(FlexInner as any);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (FlexWithRef as any).displayName = 'Flex';
 
-export const Flex = FlexWithRef;
+export const Flex = FlexWithRef as <T extends ElementType = 'div'>(
+  props: FlexProps<T> & { ref?: PolymorphicRef<T> },
+) => React.ReactElement | null;
