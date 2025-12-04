@@ -14,7 +14,7 @@ import { normalizeFontId } from '../config/fontConfig';
  */
 export interface HtmlSerializerOptions {
   /** Optional font configuration for rendering fonts */
-  fontConfig?: FontConfig;
+  fonts?: FontConfig;
 }
 
 /**
@@ -41,6 +41,7 @@ const FONT_STACKS: Record<string, string> = {
  * @param fontId The font ID
  * @param config Optional font configuration for validation
  * @returns CSS font-family value
+ * @deprecated Use getFontClassName for class-based font application
  */
 export function getFontFamily(
   fontId: string | undefined,
@@ -55,6 +56,30 @@ export function getFontFamily(
     FONT_STACKS[normalizedFontId] ||
     FONT_STACKS[config?.defaultFontId || 'inter']
   );
+}
+
+/**
+ * Get the CSS class name for a given font ID.
+ * Returns undefined for default fonts to avoid redundant classes.
+ * @param fontId The font ID to convert to a class name
+ * @param config Optional font configuration for validation
+ * @returns CSS class name (e.g., 'font-inter', 'font-roboto') or undefined
+ */
+export function getFontClassName(
+  fontId: string | undefined,
+  config?: FontConfig,
+): string | undefined {
+  if (!fontId) return undefined;
+
+  // Normalize font ID if config is provided
+  const normalizedFontId = config ? normalizeFontId(fontId, config) : fontId;
+
+  // Don't generate class for default font (no redundant classes)
+  if (config && normalizedFontId === config.defaultFontId) {
+    return undefined;
+  }
+
+  return `font-${normalizedFontId}`;
 }
 
 /**
@@ -138,9 +163,9 @@ function serializeParagraph(
   node: Paragraph,
   options?: HtmlSerializerOptions,
 ): string {
-  const fontFamily = getFontFamily(node.attrs?.fontId, options?.fontConfig);
-  const styleAttr = fontFamily ? ` style="font-family: ${fontFamily}"` : '';
-  return `<p${styleAttr}>${serializeChildren(node, options)}</p>`;
+  const fontClassName = getFontClassName(node.attrs?.fontId, options?.fonts);
+  const classAttr = fontClassName ? ` class="${fontClassName}"` : '';
+  return `<p${classAttr}>${serializeChildren(node, options)}</p>`;
 }
 
 /**
@@ -151,9 +176,9 @@ function serializeHeading(
   options?: HtmlSerializerOptions,
 ): string {
   const level = node.attrs.level || 1;
-  const fontFamily = getFontFamily(node.attrs.fontId, options?.fontConfig);
-  const styleAttr = fontFamily ? ` style="font-family: ${fontFamily}"` : '';
-  return `<h${level}${styleAttr}>${serializeChildren(node, options)}</h${level}>`;
+  const fontClassName = getFontClassName(node.attrs.fontId, options?.fonts);
+  const classAttr = fontClassName ? ` class="${fontClassName}"` : '';
+  return `<h${level}${classAttr}>${serializeChildren(node, options)}</h${level}>`;
 }
 
 /**
@@ -163,9 +188,9 @@ function serializeListItem(
   node: ListItem,
   options?: HtmlSerializerOptions,
 ): string {
-  const fontFamily = getFontFamily(node.attrs?.fontId, options?.fontConfig);
-  const styleAttr = fontFamily ? ` style="font-family: ${fontFamily}"` : '';
-  return `<li${styleAttr}>${serializeChildren(node, options)}</li>`;
+  const fontClassName = getFontClassName(node.attrs?.fontId, options?.fonts);
+  const classAttr = fontClassName ? ` class="${fontClassName}"` : '';
+  return `<li${classAttr}>${serializeChildren(node, options)}</li>`;
 }
 
 /**
@@ -187,7 +212,7 @@ function serializeChildren(
         if (skipMarks || !child.marks || child.marks.length === 0) {
           return text;
         }
-        return applyMarks(text, child.marks);
+        return applyMarks(text, child.marks, options);
       }
       return serializeNode(child, options);
     })
@@ -196,10 +221,14 @@ function serializeChildren(
 
 /**
  * Apply text marks (bold, italic, etc.) to text content.
+ * @param text The text content
+ * @param marks The marks to apply
+ * @param options Optional serialization options for font normalization
  */
 function applyMarks(
   text: string,
   marks: Array<{ type: string; attrs?: Record<string, unknown> }>,
+  options?: HtmlSerializerOptions,
 ): string {
   let result = text;
   marks.forEach((mark) => {
@@ -225,6 +254,14 @@ function applyMarks(
           ? ` title="${escapeHtml(mark.attrs.title as string)}"`
           : '';
         result = `<a href="${escapeHtml(href)}"${target}${title}>${result}</a>`;
+        break;
+      }
+      case 'font': {
+        const fontId = mark.attrs?.fontId as string | undefined;
+        const fontClassName = getFontClassName(fontId, options?.fonts);
+        if (fontClassName) {
+          result = `<span class="${fontClassName}">${result}</span>`;
+        }
         break;
       }
     }

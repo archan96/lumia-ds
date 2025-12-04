@@ -285,7 +285,7 @@ Convert a `DocNode` to an HTML string with CSS font styles:
 ```typescript
 import { docNodeToHtml } from '@lumia/editor';
 
-const html = docNodeToHtml(doc, { fontConfig: brandFonts });
+const html = docNodeToHtml(doc, { fonts: brandFonts });
 // Output: <p style="font-family: 'Roboto', sans-serif">Hello World</p>
 ```
 
@@ -296,7 +296,7 @@ The serializer includes fallback fonts for all default fonts:
 - `roboto` → `"Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif`
 - And more...
 
-Invalid fonts are automatically normalized to the default font's CSS stack when `fontConfig` is provided.
+Invalid fonts are automatically normalized to the default font's CSS stack when `fonts` config is provided.
 
 ### Example: Complete Workflow with Font Enforcement
 
@@ -330,6 +330,6 @@ const normalizedDoc = normalizeDocumentFonts(loadedDoc, brandFonts);
 />
 
 // Export to HTML with correct font stacks
-const html = docNodeToHtml(normalizedDoc, { fontConfig: brandFonts });
+const html = docNodeToHtml(normalizedDoc, { fonts: brandFonts });
 ```
 
