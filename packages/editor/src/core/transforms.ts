@@ -106,20 +106,18 @@ export function normalizeDocumentFonts(
 
 /**
  * Converts a DocNode JSON tree to a ProseMirror EditorState.
- * If fontConfig is provided, fonts will be normalized before conversion.
+ * If fonts config is provided, fonts will be normalized before conversion.
  *
- * @param json The DocNode JSON tree to convert.
- * @param fontConfig Optional font configuration for normalization
- * @returns The EditorState.
+ * @param json The DocNode JSON to convert
+ * @param fonts Optional font configuration for normalization
+ * @returns A new ProseMirror EditorState
  */
 export function jsonToEditorState(
   json: DocNode,
-  fontConfig?: FontConfig,
+  fonts?: FontConfig,
 ): EditorState {
   // Normalize fonts if config is provided
-  const normalizedJson = fontConfig
-    ? normalizeDocumentFonts(json, fontConfig)
-    : json;
+  const normalizedJson = fonts ? normalizeDocumentFonts(json, fonts) : json;
 
   const mappedJson = traverseAndMap(normalizedJson, (type) =>
     type === 'link' ? 'link_node' : type,

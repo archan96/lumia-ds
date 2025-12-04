@@ -16,7 +16,13 @@ export type NodeType =
 /**
  * Represents the type of a mark in the editor document.
  */
-export type MarkType = 'bold' | 'italic' | 'underline' | 'code' | 'link';
+export type MarkType =
+  | 'bold'
+  | 'italic'
+  | 'underline'
+  | 'code'
+  | 'link'
+  | 'font';
 
 /**
  * Represents a mark applied to a text node.
@@ -28,6 +34,8 @@ export interface Mark {
   attrs?: {
     href?: string;
     target?: string;
+    /** Font ID for font marks (inline font application). */
+    fontId?: string;
     [key: string]: unknown;
   };
 }
