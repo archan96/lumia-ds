@@ -1,0 +1,39 @@
+{
+    "name": "@lumia/editor",
+    "type": "module",
+    "version": "0.0.0",
+    "description": "Editor package for Lumia DS",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        }
+    },
+    "sideEffects": false,
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "test": "vitest run --coverage",
+        "lint": "eslint \"src/**/*.{ts,tsx}\""
+    },
+    "peerDependencies": {
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
+    },
+    "devDependencies": {
+        "@types/react": "^18.3.12",
+        "@types/react-dom": "^18.3.1",
+        "@vitest/coverage-v8": "^2.1.9",
+        "happy-dom": "^20.0.10",
+        "jsdom": "^27.2.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "tsup": "^8.0.0",
+        "typescript": "^5.0.0",
+        "vitest": "^2.1.9"
+    }
+}
