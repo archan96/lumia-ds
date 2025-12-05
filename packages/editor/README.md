@@ -1,6 +1,6 @@
 # @lumia/editor
 
-The core editor package for Lumia DS.
+The core editor package for Lumia DS, built on top of [Lexical](https://lexical.dev/).
 
 ## Installation
 
