@@ -51,7 +51,7 @@ export function VideoBlockComponent({
     return mergeRegister(
       editor.registerCommand(
         CLICK_COMMAND,
-        (event: MouseEvent) => {
+        () => {
           // Check if click is inside the component but not necessarily on the video/iframe itself
           // Since iframes capture clicks, we might need a wrapper to handle selection
           // For now, we rely on the wrapper div click
