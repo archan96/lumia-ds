@@ -35,5 +35,9 @@
         "tsup": "^8.0.0",
         "typescript": "^5.0.0",
         "vitest": "^2.1.9"
+    },
+    "dependencies": {
+        "@lexical/react": "0.38.2",
+        "lexical": "0.38.2"
     }
 }
