@@ -72,9 +72,22 @@ export class VideoBlockNode extends DecoratorNode<React.ReactElement> {
     key?: NodeKey,
   ) {
     super(key);
+
     this.__src = src;
     this.__provider = provider;
     this.__title = title;
+  }
+
+  getSrc(): string {
+    return this.__src;
+  }
+
+  getProvider(): VideoProvider | undefined {
+    return this.__provider;
+  }
+
+  getTitle(): string | undefined {
+    return this.__title;
   }
 
   createDOM(config: EditorConfig): HTMLElement {
@@ -88,6 +101,10 @@ export class VideoBlockNode extends DecoratorNode<React.ReactElement> {
   }
 
   updateDOM(): boolean {
+    return false;
+  }
+
+  isInline(): boolean {
     return false;
   }
 

@@ -378,6 +378,7 @@ editor.update(() => {
 
 - **Supported Providers**: 'youtube', 'vimeo', 'loom', 'html5'.
 - **Rendering**: Renders as an `iframe` for embed providers and `<video>` tag for HTML5.
+- **Auto-Embed**: When you paste a YouTube, Vimeo, or Loom URL, it is automatically converted to a VideoBlockNode embed. The plugin intercepts paste events and creates an embedded video block if the pasted content is a valid video URL.
 
 
 
