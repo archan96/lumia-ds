@@ -14,6 +14,7 @@ export interface FileBlockPayload {
   filename: string;
   size?: number;
   mime?: string;
+  status?: 'uploading' | 'uploaded' | 'error';
   key?: NodeKey;
 }
 
@@ -23,6 +24,7 @@ export type SerializedFileBlockNode = Spread<
     filename: string;
     size?: number;
     mime?: string;
+    status?: 'uploading' | 'uploaded' | 'error';
   },
   SerializedLexicalNode
 >;
@@ -32,6 +34,7 @@ export class FileBlockNode extends DecoratorNode<React.ReactElement> {
   __filename: string;
   __size?: number;
   __mime?: string;
+  __status?: 'uploading' | 'uploaded' | 'error';
 
   static getType(): string {
     return 'file-block';
@@ -43,17 +46,19 @@ export class FileBlockNode extends DecoratorNode<React.ReactElement> {
       node.__filename,
       node.__size,
       node.__mime,
+      node.__status,
       node.__key,
     );
   }
 
   static importJSON(serializedNode: SerializedFileBlockNode): FileBlockNode {
-    const { url, filename, size, mime } = serializedNode;
+    const { url, filename, size, mime, status } = serializedNode;
     const node = $createFileBlockNode({
       url,
       filename,
       size,
       mime,
+      status,
     });
     return node;
   }
@@ -64,6 +69,7 @@ export class FileBlockNode extends DecoratorNode<React.ReactElement> {
       filename: this.__filename,
       size: this.__size,
       mime: this.__mime,
+      status: this.__status,
       type: 'file-block',
       version: 1,
     };
@@ -74,6 +80,7 @@ export class FileBlockNode extends DecoratorNode<React.ReactElement> {
     filename: string,
     size?: number,
     mime?: string,
+    status?: 'uploading' | 'uploaded' | 'error',
     key?: NodeKey,
   ) {
     super(key);
@@ -81,6 +88,7 @@ export class FileBlockNode extends DecoratorNode<React.ReactElement> {
     this.__filename = filename;
     this.__size = size;
     this.__mime = mime;
+    this.__status = status;
   }
 
   createDOM(config: EditorConfig): HTMLElement {
@@ -104,6 +112,7 @@ export class FileBlockNode extends DecoratorNode<React.ReactElement> {
         filename={this.__filename}
         size={this.__size}
         mime={this.__mime}
+        status={this.__status}
         nodeKey={this.getKey()}
       />
     );
@@ -115,9 +124,10 @@ export function $createFileBlockNode({
   filename,
   size,
   mime,
+  status,
   key,
 }: FileBlockPayload): FileBlockNode {
-  return new FileBlockNode(url, filename, size, mime, key);
+  return new FileBlockNode(url, filename, size, mime, status, key);
 }
 
 export function $isFileBlockNode(

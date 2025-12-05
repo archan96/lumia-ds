@@ -13,6 +13,7 @@ import { Toolbar } from './Toolbar';
 import { ClickableLinkPlugin } from './ClickableLinkPlugin';
 import { PasteLinkPlugin } from './PasteLinkPlugin';
 import { InsertImagePlugin } from '../plugins/InsertImagePlugin';
+import { InsertFilePlugin } from '../plugins/InsertFilePlugin';
 
 import { EditorToolbarCompact } from './EditorToolbarCompact';
 
@@ -46,6 +47,7 @@ export function LumiaEditorPrimitive({
       <ClickableLinkPlugin />
       <PasteLinkPlugin />
       <InsertImagePlugin />
+      <InsertFilePlugin />
       <CodeHighlightPlugin />
     </div>
   );

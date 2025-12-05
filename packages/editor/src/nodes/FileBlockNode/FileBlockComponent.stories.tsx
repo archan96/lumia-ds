@@ -1,11 +1,22 @@
+import React, { useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { FileBlockComponent } from './FileBlockComponent';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
-import { FileBlockNode } from './FileBlockNode';
+import { FileBlockNode, $createFileBlockNode } from './FileBlockNode';
+import { MediaContext } from '../../EditorProvider';
+import { EditorMediaConfig } from '../../media-config';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $getRoot } from 'lexical';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 
 const meta: Meta<typeof FileBlockComponent> = {
-  title: 'Editor/Nodes/FileBlockComponent',
+  title: 'Nodes/FileBlockComponent',
   component: FileBlockComponent,
+  parameters: {
+    layout: 'centered',
+  },
   decorators: [
     (Story) => {
       const initialConfig = {
@@ -17,10 +28,31 @@ const meta: Meta<typeof FileBlockComponent> = {
         },
       };
 
+      const mediaConfig: EditorMediaConfig = {
+        uploadAdapter: {
+          uploadFile: async (file) => {
+            await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate delay
+            if (file.name.includes('error')) {
+              throw new Error('Upload failed');
+            }
+            return {
+              url: URL.createObjectURL(file),
+              mime: file.type,
+              size: file.size,
+            };
+          },
+        },
+        maxFileSizeMB: 5,
+      };
+
       return (
-        <LexicalComposer initialConfig={initialConfig}>
-          <Story />
-        </LexicalComposer>
+        <MediaContext.Provider value={mediaConfig}>
+          <LexicalComposer initialConfig={initialConfig}>
+            <div className="relative prose dark:prose-invert p-4 w-[500px]">
+              <Story />
+            </div>
+          </LexicalComposer>
+        </MediaContext.Provider>
       );
     },
   ],
@@ -29,42 +61,78 @@ const meta: Meta<typeof FileBlockComponent> = {
 export default meta;
 type Story = StoryObj<typeof FileBlockComponent>;
 
-export const PDF: Story = {
-  args: {
-    url: 'https://example.com/document.pdf',
-    filename: 'document.pdf',
-    size: 1024 * 1024 * 2.5, // 2.5 MB
-    mime: 'application/pdf',
-    nodeKey: '1',
-  },
+const StoryEditor = ({
+  url,
+  filename,
+  size,
+  mime,
+  status,
+}: {
+  url: string;
+  filename: string;
+  size?: number;
+  mime?: string;
+  status?: 'uploading' | 'uploaded' | 'error';
+}) => {
+  const [editor] = useLexicalComposerContext();
+
+  useEffect(() => {
+    editor.update(() => {
+      $getRoot().clear();
+      const node = $createFileBlockNode({ url, filename, size, mime, status });
+      $getRoot().append(node);
+    });
+  }, [editor, url, filename, size, mime, status]);
+
+  return (
+    <RichTextPlugin
+      contentEditable={
+        <ContentEditable className="min-h-[200px] outline-none" />
+      }
+      placeholder={null}
+      ErrorBoundary={
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        LexicalErrorBoundary as unknown as React.ComponentType<any>
+      }
+    />
+  );
 };
 
-export const Image: Story = {
-  args: {
-    url: 'https://example.com/image.png',
-    filename: 'image.png',
-    size: 1024 * 500, // 500 KB
-    mime: 'image/png',
-    nodeKey: '1',
-  },
+export const Default: Story = {
+  render: () => (
+    <StoryEditor
+      url="https://example.com/file.pdf"
+      filename="example-document.pdf"
+      size={1024 * 1024 * 2.5}
+      mime="application/pdf"
+    />
+  ),
 };
 
-export const NoSize: Story = {
-  args: {
-    url: 'https://example.com/unknown.zip',
-    filename: 'unknown.zip',
-    mime: 'application/zip',
-    nodeKey: '1',
-  },
+export const Uploading: Story = {
+  render: () => (
+    <StoryEditor
+      url=""
+      filename="uploading-file.pdf"
+      size={1024 * 1024 * 5}
+      mime="application/pdf"
+      status="uploading"
+    />
+  ),
 };
 
-export const LongFilename: Story = {
-  args: {
-    url: 'https://example.com/very-long-filename-that-should-be-truncated-in-the-ui-because-it-is-too-long.txt',
-    filename:
-      'very-long-filename-that-should-be-truncated-in-the-ui-because-it-is-too-long.txt',
-    size: 123,
-    mime: 'text/plain',
-    nodeKey: '1',
-  },
+export const Error: Story = {
+  render: () => (
+    <StoryEditor
+      url=""
+      filename="failed-upload.pdf"
+      size={1024 * 1024 * 1}
+      mime="application/pdf"
+      status="error"
+    />
+  ),
+};
+
+export const UploadFlow: Story = {
+  render: () => <StoryEditor url="" filename="" status={undefined} />,
 };

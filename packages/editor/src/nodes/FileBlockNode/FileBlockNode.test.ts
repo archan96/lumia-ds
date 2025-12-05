@@ -14,12 +14,14 @@ describe('FileBlockNode', () => {
         'file.pdf',
         1024,
         'application/pdf',
+        'uploaded',
       );
       expect(node).toBeInstanceOf(FileBlockNode);
       expect(node.__url).toBe('https://example.com/file.pdf');
       expect(node.__filename).toBe('file.pdf');
       expect(node.__size).toBe(1024);
       expect(node.__mime).toBe('application/pdf');
+      expect(node.__status).toBe('uploaded');
     });
   });
 
@@ -30,6 +32,7 @@ describe('FileBlockNode', () => {
         'file.pdf',
         1024,
         'application/pdf',
+        'uploaded',
       );
       const serialized = node.exportJSON();
       expect(serialized).toEqual({
@@ -37,6 +40,7 @@ describe('FileBlockNode', () => {
         filename: 'file.pdf',
         size: 1024,
         mime: 'application/pdf',
+        status: 'uploaded',
         type: 'file-block',
         version: 1,
       });
@@ -47,6 +51,7 @@ describe('FileBlockNode', () => {
       expect(deserialized.__filename).toBe('file.pdf');
       expect(deserialized.__size).toBe(1024);
       expect(deserialized.__mime).toBe('application/pdf');
+      expect(deserialized.__status).toBe('uploaded');
     });
   });
 });

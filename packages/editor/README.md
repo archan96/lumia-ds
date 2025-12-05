@@ -127,7 +127,7 @@ const brandFonts: FontConfig = {
 
 ### Media Configuration
 
-Configure media upload behavior using the `media` prop:
+Configure media upload behavior (for images and files) using the `media` prop:
 
 ```tsx
 import { LumiaEditor, type EditorMediaConfig } from '@lumia/editor';
@@ -355,6 +355,9 @@ editor.update(() => {
   $insertNodes([node]);
 });
 ```
+
+- **Insert File**: Use the toolbar button to insert a file. If an `uploadAdapter` is configured, selecting a file will trigger the upload flow, showing an optimistic preview and progress state.
+
 
 ## Performance Testing
 

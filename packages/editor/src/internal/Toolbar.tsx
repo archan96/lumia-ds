@@ -26,6 +26,7 @@ import { TOGGLE_LINK_COMMAND } from '@lexical/link';
 import { FontCombobox } from '../components/Fonts';
 import { useToolbarState } from './useToolbarState';
 import { ImageToolbarButton } from '../components/Toolbar/ImageToolbarButton';
+import { FileToolbarButton } from '../components/Toolbar/FileToolbarButton';
 
 export function Toolbar() {
   const {
@@ -236,6 +237,7 @@ export function Toolbar() {
         </Popover>
         <div className="mx-2 h-6 w-px bg-border" />
         <ImageToolbarButton />
+        <FileToolbarButton />
       </div>
     </LumiaToolbar>
   );
