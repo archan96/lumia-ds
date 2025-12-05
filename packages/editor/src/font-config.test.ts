@@ -101,7 +101,9 @@ describe('font-config', () => {
     });
 
     it('returns config unchanged when allowedFonts is empty array', () => {
-      const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => { });
+      const consoleWarnSpy = vi
+        .spyOn(console, 'warn')
+        .mockImplementation(() => {});
       const config: FontConfig = {
         allFonts: mockFonts,
         allowedFonts: [],

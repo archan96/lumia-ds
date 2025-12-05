@@ -79,6 +79,31 @@ function AppWithCustomFonts() {
 
 All fonts include proper fallback stacks following Google Fonts best practices.
 
+#### Brand Font Restrictions
+
+Use `allowedFonts` to restrict font selection to specific brand fonts. The editor will:
+- Only show allowed fonts in the font picker
+- Automatically normalize `defaultFontId` to the first allowed font if it's not in the allowed list
+- Ignore attempts to select disallowed fonts
+
+```tsx
+const brandFonts: FontConfig = {
+  allFonts: [
+    { id: 'inter', label: 'Inter', cssStack: 'Inter, sans-serif' },
+    { id: 'roboto', label: 'Roboto', cssStack: 'Roboto, sans-serif' },
+    { id: 'lora', label: 'Lora', cssStack: 'Lora, serif' },
+  ],
+  allowedFonts: ['inter', 'roboto'], // Only Inter and Roboto allowed
+  defaultFontId: 'lora', // Will be auto-normalized to 'inter'
+};
+
+// The editor will use 'inter' as default (first in allowedFonts)
+// Only Inter and Roboto will appear in the font picker
+```
+
+**Auto-Normalization**: If `defaultFontId` is not in `allowedFonts`, the editor automatically uses the first font in `allowedFonts` as the default. This ensures brand compliance without requiring manual configuration updates.
+
+
 ### Advanced Usage
 
 You can access the editor state in child components using `useEditorState` hook. Note that `LumiaEditor` already wraps its children in `EditorProvider`.
@@ -171,6 +196,26 @@ function MyComponent() {
   );
 }
 ```
+
+#### `normalizeFontConfig()`
+
+Normalizes a font configuration to enforce brand restrictions. Automatically maps `defaultFontId` to the first allowed font if it's not in the `allowedFonts` list.
+
+```typescript
+import { normalizeFontConfig, type FontConfig } from '@lumia/editor';
+
+const config: FontConfig = {
+  allFonts: [/* ... */],
+  allowedFonts: ['inter', 'roboto'],
+  defaultFontId: 'lora', // Not in allowedFonts
+};
+
+const normalized = normalizeFontConfig(config);
+// normalized.defaultFontId === 'inter' (first in allowedFonts)
+```
+
+**Note**: The editor automatically normalizes font configurations on initialization. You typically don't need to call this function directly unless you're building custom font configuration logic.
+
 
 ## Development
 

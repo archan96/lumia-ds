@@ -15,7 +15,11 @@ import { TableNode, TableCellNode, TableRowNode } from '@lexical/table';
 import { ListItemNode, ListNode } from '@lexical/list';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { FontConfig, getDefaultFontConfig, normalizeFontConfig } from './font-config';
+import {
+  FontConfig,
+  getDefaultFontConfig,
+  normalizeFontConfig,
+} from './font-config';
 
 interface EditorContextType {
   editor: LexicalEditor | null;
@@ -66,7 +70,7 @@ function EditorStatePlugin({
 const InternalEditorContext = createContext<{
   setEditorState: (state: LumiaEditorStateJSON) => void;
 }>({
-  setEditorState: () => { },
+  setEditorState: () => {},
 });
 const useInternalEditorContext = () => useContext(InternalEditorContext);
 
