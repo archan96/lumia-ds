@@ -104,17 +104,17 @@ export function $insertRow(insertBefore: boolean): boolean {
 
 /**
  * Inserts a new column to the left or right of the current selection.
- * @param insertBefore - If true, inserts left; if false, inserts right
+ * @param insertAfter - If true, inserts right (after current cell); if false, inserts left (before current cell)
  * @returns true if successful, false otherwise
  */
-export function $insertColumn(insertBefore: boolean): boolean {
+export function $insertColumn(insertAfter: boolean): boolean {
   const cellNode = $getSelectedTableCell();
   if (!cellNode) {
     return false;
   }
 
   try {
-    $insertTableColumn__EXPERIMENTAL(insertBefore);
+    $insertTableColumn__EXPERIMENTAL(insertAfter);
     return true;
   } catch {
     return false;

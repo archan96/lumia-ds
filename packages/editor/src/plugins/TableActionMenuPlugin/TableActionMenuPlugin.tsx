@@ -106,14 +106,14 @@ export function TableActionMenuPlugin({
   // Handle insert column left
   const handleInsertColumnLeft = useCallback(() => {
     editor.update(() => {
-      $insertColumn(true);
+      $insertColumn(false); // insertAfter=false means insert before (left)
     });
   }, [editor]);
 
   // Handle insert column right
   const handleInsertColumnRight = useCallback(() => {
     editor.update(() => {
-      $insertColumn(false);
+      $insertColumn(true); // insertAfter=true means insert after (right)
     });
   }, [editor]);
 
