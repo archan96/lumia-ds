@@ -10,8 +10,16 @@ import {
   SerializedTableNode,
   SerializedTableRowNode,
   SerializedTableCellNode,
+  INSERT_TABLE_COMMAND,
+  $isTableNode,
+  registerTablePlugin,
 } from '@lexical/table';
-import { ParagraphNode, $createParagraphNode, $createTextNode } from 'lexical';
+import {
+  ParagraphNode,
+  $createParagraphNode,
+  $createTextNode,
+  $getRoot,
+} from 'lexical';
 
 describe('Table Nodes', () => {
   const editor = createHeadlessEditor({
@@ -180,6 +188,56 @@ describe('Table Nodes', () => {
       expect(
         (dataRowJSON.children[1] as SerializedTableCellNode).headerState,
       ).toBe(0);
+    });
+  });
+
+  test('INSERT_TABLE_COMMAND should create a 3x3 table', async () => {
+    // Create a new editor for this test with proper initial state
+    const testEditor = createHeadlessEditor({
+      nodes: [TableNode, TableRowNode, TableCellNode, ParagraphNode],
+    });
+
+    // Register the table plugin
+    registerTablePlugin(testEditor);
+
+    // Set up initial editor state with a paragraph
+    await testEditor.update(() => {
+      const root = $getRoot();
+      root.clear();
+      const paragraph = $createParagraphNode();
+      root.append(paragraph);
+      paragraph.select();
+    });
+
+    // Dispatch the INSERT_TABLE_COMMAND
+    await testEditor.update(() => {
+      testEditor.dispatchCommand(INSERT_TABLE_COMMAND, {
+        rows: '3',
+        columns: '3',
+        includeHeaders: false,
+      });
+    });
+
+    // Verify the table was created
+    testEditor.getEditorState().read(() => {
+      const root = $getRoot();
+      const children = root.getChildren();
+
+      // Find the table node
+      const tableNodes = children.filter((child) => $isTableNode(child));
+      expect(tableNodes).toHaveLength(1);
+
+      const tableNode = tableNodes[0] as TableNode;
+      const rows = tableNode.getChildren();
+
+      // Should have 3 rows
+      expect(rows).toHaveLength(3);
+
+      // Each row should have 3 cells
+      for (const row of rows) {
+        const cells = (row as TableRowNode).getChildren();
+        expect(cells).toHaveLength(3);
+      }
     });
   });
 });

@@ -391,11 +391,20 @@ The editor supports a slash menu for quick block insertion.
 - **Available Commands**:
   - `/video` - Insert a video block (prompts for URL)
   - `/image` - Insert an image block (prompts for URL)
+  - `/table` - Insert a 3×3 table
 
 
 
 ### Table
 The editor supports tables via the `@lexical/table` integration.
+
+**Inserting Tables**:
+- **Toolbar**: Click the Table button in the toolbar to insert a 3×3 table at the current selection.
+- **Slash Menu**: Type `/table` at the start of a line or after a space to insert a 3×3 table.
+
+**Keyboard Navigation**:
+- Press `Tab` to move to the next cell
+- Press `Shift+Tab` to move to the previous cell
 
 Tables are rendered with proper styling including:
 - Cell borders and padding
@@ -426,7 +435,7 @@ const tableJSON = {
 };
 ```
 
-To view a demo table, navigate to the `Table / Basic` story in Storybook.
+To view a demo table, navigate to the `Table / Basic` story in Storybook. To test table insertion, navigate to `Table / Insert`.
 
 
 

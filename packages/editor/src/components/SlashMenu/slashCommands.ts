@@ -1,6 +1,7 @@
-import { LucideIcon, Video, Image } from 'lucide-react';
+import { LucideIcon, Video, Image, Table2 } from 'lucide-react';
 import { INSERT_VIDEO_BLOCK_COMMAND } from '../../plugins/InsertVideoPlugin';
 import { INSERT_IMAGE_BLOCK_COMMAND } from '../../plugins/InsertImagePlugin';
+import { INSERT_TABLE_COMMAND } from '@lexical/table';
 import { LexicalEditor } from 'lexical';
 
 export interface SlashCommand {
@@ -55,6 +56,20 @@ export const defaultSlashCommands: SlashCommand[] = [
           alt: '',
         });
       }
+    },
+  },
+  {
+    name: 'table',
+    label: 'Table',
+    description: 'Insert a 3×3 table',
+    icon: Table2,
+    keywords: ['table', 'grid', 'rows', 'columns'],
+    execute: (editor) => {
+      editor.dispatchCommand(INSERT_TABLE_COMMAND, {
+        rows: '3',
+        columns: '3',
+        includeHeaders: false,
+      });
     },
   },
 ];
