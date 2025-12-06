@@ -277,3 +277,96 @@ export const EmptyTable: Story = {
     },
   },
 };
+
+/**
+ * Demonstrates table insertion via toolbar button or /table slash command.
+ * Click the Table button in the toolbar or type /table to insert a 3×3 table.
+ */
+export const Insert: Story = {
+  args: {
+    value: {
+      root: {
+        children: [
+          {
+            children: [
+              {
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Table Insert Demo',
+                type: 'text',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            type: 'heading',
+            version: 1,
+            tag: 'h2',
+          },
+          {
+            children: [
+              {
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Click the Table button in the toolbar above to insert a 3×3 table.',
+                type: 'text',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            type: 'paragraph',
+            version: 1,
+          },
+          {
+            children: [
+              {
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'You can also type /table at the start of a line or after a space to insert a table.',
+                type: 'text',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            type: 'paragraph',
+            version: 1,
+          },
+          {
+            children: [],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            type: 'paragraph',
+            version: 1,
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        type: 'root',
+        version: 1,
+      },
+    },
+    onChange: (val) => console.log('Insert Table onChange:', val),
+    mode: 'document',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates table insertion. Use the Table button in the toolbar or type /table to insert a 3×3 table. Tables support Tab/Shift+Tab navigation between cells.',
+      },
+    },
+  },
+};
